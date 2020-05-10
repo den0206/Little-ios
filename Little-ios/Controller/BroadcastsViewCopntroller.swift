@@ -49,7 +49,7 @@ class BroadcastsViewController : UICollectionViewController {
 //        collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 50, right: 0)
 //        collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 50, right: 0)
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifer)
+        collectionView.register(BroadcaastCell.self, forCellWithReuseIdentifier: reuseIdentifer)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -65,9 +65,8 @@ extension BroadcastsViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifer, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifer, for: indexPath) as! BroadcaastCell
         
-        cell.backgroundColor = .yellow
         return cell
     }
     
