@@ -92,9 +92,5 @@ private func fetchBroadcast() {
          print(broadcast.wawos)
      }
 
-     APIManager.shared.allCastsRequest { (index, error) in
-         guard let index = index else {return}
-         /// self.nextPageToken = index.pagenation.pagenation.next
-         print(index.broadcats.count)
-     }
+     
  }

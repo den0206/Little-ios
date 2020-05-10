@@ -10,9 +10,11 @@ import UIKit
 
 class BroadcaastCell : UICollectionViewCell {
     
-    var bubbleLeftAnchor : NSLayoutConstraint!
-    var bubbleRightAnchor : NSLayoutConstraint!
-    
+    var snippet : Snippet? {
+        didSet {
+           comfigure()
+        }
+    }
     //MARK: - Parts
     
     private let numberLabel : UILabel = {
@@ -20,6 +22,7 @@ class BroadcaastCell : UICollectionViewCell {
         label.text = "第３回"
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .black
+        
         
         return label
     }()
@@ -30,7 +33,9 @@ class BroadcaastCell : UICollectionViewCell {
         iv.contentMode = .scaleAspectFit
         iv.setDimension(width: 160, height: 160)
         iv.backgroundColor = .systemBackground
+        iv.clipsToBounds = true
         iv.layer.cornerRadius = 160 / 2
+        iv.image = #imageLiteral(resourceName: "リトル")
         return iv
     }()
     
@@ -47,6 +52,7 @@ class BroadcaastCell : UICollectionViewCell {
         label.text = "Guest :"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .black
+    
         return label
     }()
     
@@ -61,6 +67,7 @@ class BroadcaastCell : UICollectionViewCell {
         let iv = UIImageView()
         iv.setDimension(width: 45, height: 45)
         iv.layer.cornerRadius = 45 / 2
+        iv.image = #imageLiteral(resourceName: "xSUbWKN2efIREtE1554983677_1554983709")
         iv.backgroundColor = .systemBackground
         iv.contentMode = .scaleAspectFit
 
@@ -88,7 +95,7 @@ class BroadcaastCell : UICollectionViewCell {
         let iv = UIImageView()
         iv.setDimension(width: 45, height: 45)
         iv.layer.cornerRadius = 45 / 2
-        iv.backgroundColor = .systemPink
+        iv.image = #imageLiteral(resourceName: "FeYVMuZZVYt1R7c1554983733_1554983761")
         iv.contentMode = .scaleAspectFit
         
         return iv
@@ -101,7 +108,7 @@ class BroadcaastCell : UICollectionViewCell {
     
     private lazy var kasuBubble : UIView = {
         
-        return configureBubbleContainerView(color: .systemPink, tv: kasuTextView)
+        return configureBubbleContainerView(color: UIColor(red: 255 / 255, green: 193 / 255, blue: 213 / 255, alpha: 1), tv: kasuTextView)
         
     }()
     
@@ -109,24 +116,6 @@ class BroadcaastCell : UICollectionViewCell {
     
     
     
-//    private let textView : UITextView = {
-//        let tv = UITextView()
-//        tv.backgroundColor = .clear
-//        tv.font = UIFont.systemFont(ofSize: 16)
-//        tv.isScrollEnabled = false
-//        tv.isEditable = false
-//                tv.text = "Test"
-//        return tv
-//    }()
-//
-//    private let bubbleContainer : UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .systemBackground
-//        view.layer.cornerRadius = 12
-//
-//        return view
-//    }()
-//
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -199,6 +188,25 @@ class BroadcaastCell : UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - configure
+    
+    private func comfigure() {
+        
+        guard let snippet = snippet else {return}
+        
+        numberLabel.text = "第\(snippet.number)回"
+        dateLabel.text = snippet.date
+        
+        guestLabel?.text = "GUEST: \(snippet.guest)"
+        
+        wakaTextView.text = snippet.waka
+        kasuTextView.text = snippet.kasu
+        
+        
+    }
+    
+    //MARK: - Helpers UI
+    
     func configureBubbleContainerView(color : UIColor, tv : UITextView) -> UIView {
         let bubbleView = UIView()
         
@@ -215,12 +223,13 @@ class BroadcaastCell : UICollectionViewCell {
         return bubbleView
     }
     
-    func configureTextView() -> UITextView {
+    func configureTextView(color : UIColor = .black) -> UITextView {
         let tv = UITextView()
         
         tv.backgroundColor = .clear
         tv.font = UIFont.systemFont(ofSize: 16)
         tv.isScrollEnabled = false
+        tv.textColor = color
         tv.isEditable = false
         
         return tv
