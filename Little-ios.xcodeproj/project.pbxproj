@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A19DB6324678F8B00AF9AF8 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19DB6224678F8B00AF9AF8 /* extensions.swift */; };
+		3A19DB652467918600AF9AF8 /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19DB642467918600AF9AF8 /* ContainerController.swift */; };
+		3A19DB672467963300AF9AF8 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19DB662467963300AF9AF8 /* SideMenuController.swift */; };
 		3A553A2A2466FD410057EBDF /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A553A292466FD410057EBDF /* Index.swift */; };
 		3A553A2D246702390057EBDF /* sec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A553A2C246702390057EBDF /* sec.swift */; };
 		3AA82BAD2466ED6400217C76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BAC2466ED6400217C76 /* AppDelegate.swift */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A19DB6224678F8B00AF9AF8 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		3A19DB642467918600AF9AF8 /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
+		3A19DB662467963300AF9AF8 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		3A553A292466FD410057EBDF /* Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Index.swift; sourceTree = "<group>"; };
 		3A553A2C246702390057EBDF /* sec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sec.swift; sourceTree = "<group>"; };
 		3AA82BA92466ED6400217C76 /* Little-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Little-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				3A553A2C246702390057EBDF /* sec.swift */,
+				3A19DB6224678F8B00AF9AF8 /* extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -103,7 +110,9 @@
 		3AA82BC62466F21F00217C76 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3A19DB642467918600AF9AF8 /* ContainerController.swift */,
 				3AA82BC02466EDF700217C76 /* HomeController.swift */,
+				3A19DB662467963300AF9AF8 /* SideMenuController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -181,10 +190,13 @@
 				3AA82BC42466EEA200217C76 /* APIManager.swift in Sources */,
 				3AA82BAD2466ED6400217C76 /* AppDelegate.swift in Sources */,
 				3A553A2A2466FD410057EBDF /* Index.swift in Sources */,
+				3A19DB6324678F8B00AF9AF8 /* extensions.swift in Sources */,
 				3AA82BAF2466ED6400217C76 /* SceneDelegate.swift in Sources */,
+				3A19DB672467963300AF9AF8 /* SideMenuController.swift in Sources */,
 				3AA82BC12466EDF700217C76 /* HomeController.swift in Sources */,
 				3AA82BC82466F23F00217C76 /* Broadcast.swift in Sources */,
 				3A553A2D246702390057EBDF /* sec.swift in Sources */,
+				3A19DB652467918600AF9AF8 /* ContainerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
