@@ -19,6 +19,7 @@
 		3AA82BC12466EDF700217C76 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BC02466EDF700217C76 /* HomeController.swift */; };
 		3AA82BC42466EEA200217C76 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BC32466EEA200217C76 /* APIManager.swift */; };
 		3AA82BC82466F23F00217C76 /* Broadcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BC72466F23F00217C76 /* Broadcast.swift */; };
+		3AD552E92467BF3B0089853A /* BroadcastsViewCopntroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		3AA82BC02466EDF700217C76 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		3AA82BC32466EEA200217C76 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		3AA82BC72466F23F00217C76 /* Broadcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Broadcast.swift; sourceTree = "<group>"; };
+		3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastsViewCopntroller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				3A19DB642467918600AF9AF8 /* ContainerController.swift */,
 				3AA82BC02466EDF700217C76 /* HomeController.swift */,
 				3A19DB662467963300AF9AF8 /* SideMenuController.swift */,
+				3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AD552E92467BF3B0089853A /* BroadcastsViewCopntroller.swift in Sources */,
 				3AA82BC42466EEA200217C76 /* APIManager.swift in Sources */,
 				3AA82BAD2466ED6400217C76 /* AppDelegate.swift in Sources */,
 				3A553A2A2466FD410057EBDF /* Index.swift in Sources */,

@@ -126,20 +126,50 @@ extension ContainerController : SideMenuControllerDelegate {
     func didSelect(type: MenuOptions) {
         switch type {
         case .broadcats:
+            
             isExpand = false
             animateSideMenu(shouldExpand: isExpand)
-            print("broadCast")
             
+            let broadcastVC = BroadcastsViewController()
+            let nav = templetaNavigationController(rootController: broadcastVC)
+
             
-            
-            //            let broadcastVC = BroadcastController()
-            //            let nav = UINavigationController(rootViewController: HomeController())
-            //            nav.pushViewController(broadcastVC, animated: true)
+            if #available(iOS 13.0, *) {
+                nav.modalPresentationStyle = .fullScreen
+            }
+            present(nav, animated: true, completion: nil)
             
         default:
             return
         }
     }
+    
+    
+    private func templetaNavigationController( rootController : UIViewController) -> UINavigationController {
+            
+            let nav = UINavigationController(rootViewController: rootController)
+            let appearence = UINavigationBarAppearance()
+            appearence.configureWithOpaqueBackground()
+            appearence.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+            appearence.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+            //        appearence.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+            appearence.backgroundColor = UIColor.black
+            
+            /// navigationController border Color
+            appearence.shadowColor = .clear
+            
+            nav.navigationBar.standardAppearance = appearence
+            nav.navigationBar.compactAppearance = appearence
+            nav.navigationBar.scrollEdgeAppearance = appearence
+            
+            nav.navigationBar.tintColor = .white
+            nav.navigationBar.layer.borderColor = UIColor.white.cgColor
+            
+            
+    //        navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
+                    
+            return nav
+        }
     
 
     
