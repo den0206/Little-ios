@@ -11,7 +11,7 @@ import UIKit
 class ContainerController : UIViewController {
     
     private let homeController = HomeController()
-    private let sideMenuController = SideMenuController()
+    private var sideMenuController = SideMenuController()
     
     private let blackView = UIView()
     
@@ -38,13 +38,14 @@ class ContainerController : UIViewController {
         homeController.didMove(toParent: self)
         homeController.delagate = self
         
-        let nav = UINavigationController(rootViewController: homeController)
-        view.addSubview(nav.view)
+//        let nav = UINavigationController(rootViewController: homeController)
+        view.addSubview(homeController.view)
     }
     
     private func configureSideMenu() {
         addChild(sideMenuController)
-        sideMenuController.didMove(toParent: self)
+//        sideMenuController.didMove(toParent: self)
+        sideMenuController.delegate = self
         view.insertSubview(sideMenuController.view, at: 0)
         
         configureBlackView()
@@ -117,6 +118,30 @@ extension ContainerController : HomeControllerDelegate {
         
         
     }
+    
+    
+}
+
+extension ContainerController : SideMenuControllerDelegate {
+    func didSelect(type: MenuOptions) {
+        switch type {
+        case .broadcats:
+            isExpand = false
+            animateSideMenu(shouldExpand: isExpand)
+            print("broadCast")
+            
+            
+            
+            //            let broadcastVC = BroadcastController()
+            //            let nav = UINavigationController(rootViewController: HomeController())
+            //            nav.pushViewController(broadcastVC, animated: true)
+            
+        default:
+            return
+        }
+    }
+    
+
     
     
 }

@@ -33,7 +33,7 @@ class HomeController : UIViewController {
         return iv
     }()
     
-    private let sideMrenuButton : UIButton = {
+    private let sideMenuButton : UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
         button.setImage(UIImage(systemName: "text.justify"), for: .normal)
@@ -67,8 +67,8 @@ class HomeController : UIViewController {
         logoImageView.centerX(inView: view)
         logoImageView.anchor(top : view.safeAreaLayoutGuide.topAnchor,paddingTop: 50)
         
-        view.addSubview(sideMrenuButton)
-        sideMrenuButton.anchor(top : view.safeAreaLayoutGuide.topAnchor, left:  view.safeAreaLayoutGuide.leftAnchor, paddingTop: 16,paddingLeft: 20, width: 30,height: 30)
+        view.addSubview(sideMenuButton)
+        sideMenuButton.anchor(top : view.safeAreaLayoutGuide.topAnchor, left:  view.safeAreaLayoutGuide.leftAnchor, paddingTop: 16,paddingLeft: 20, width: 30,height: 30)
         
         
 
