@@ -53,13 +53,20 @@ class BroadcastsViewController : UICollectionViewController {
      
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+    }
+    
     private func configureCV(){
         
         viewWidth = view.frame.width
         viewHeight = view.frame.height
         navHeight = self.navigationController?.navigationBar.frame.size.height
         
-        title = "全放送回"
+        title = "放送回"
         collectionView.backgroundColor = .black
         
 //
@@ -69,8 +76,6 @@ class BroadcastsViewController : UICollectionViewController {
         collectionView.register(BroadcastCell.self, forCellWithReuseIdentifier: reuseIdentifer)
         collectionView.register(BroadcstFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifer)
         
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
         
     }
     
@@ -94,6 +99,7 @@ class BroadcastsViewController : UICollectionViewController {
 }
 
 extension BroadcastsViewController {
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return broadcasts.count
@@ -114,6 +120,15 @@ extension BroadcastsViewController {
         let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifer, for: indexPath) as! BroadcstFooterView
         footer.delegate = self
         return footer
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let broadcast = broadcasts[indexPath.item]
+        
+        let detailVC = DetailViewController(broadcast: broadcast)
+        navigationController?.pushViewController(detailVC, animated: false)
+        
     }
     
     

@@ -36,7 +36,11 @@ class BroadcastCell : UICollectionViewCell {
         iv.backgroundColor = .lightGray
         iv.clipsToBounds = true
         iv.layer.cornerRadius = 200 / 2
-        iv.image = #imageLiteral(resourceName: "リトル")
+//        iv.isUserInteractionEnabled = false
+//
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedImageView))
+//        iv.addGestureRecognizer(tap)
+        
         return iv
     }()
     
@@ -159,22 +163,6 @@ class BroadcastCell : UICollectionViewCell {
         kasuBubble.centerY(inView: kasuImage)
         kasuBubble.anchor(right: kasuImage.leftAnchor,paddingRight: 20)
         
-
-        
-        
-//        addSubview(bubbleContainer)
-//        bubbleContainer.centerY(inView: wakaImage)
-//        bubbleContainer.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
-//
-//        bubbleLeftAnchor = bubbleContainer.leftAnchor.constraint(equalTo: wakaImage.rightAnchor, constant: 20)
-//        bubbleLeftAnchor.isActive = true
-//        bubbleRightAnchor = bubbleContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -12)
-//        bubbleRightAnchor.isActive = false
-        
-        
-        
-        
-        
     }
     
     required init?(coder: NSCoder) {
@@ -230,4 +218,5 @@ class BroadcastCell : UICollectionViewCell {
         
         return tv
     }
+
 }
