@@ -19,7 +19,7 @@ class BroadcastsViewController : UICollectionViewController {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
                 self.indicator.stopAnimating()
-                self.navigationController?.showPresentLoadindView(false)
+                self.tabBarController?.showPresentLoadindView(false)
 
             }
         }
@@ -83,7 +83,7 @@ class BroadcastsViewController : UICollectionViewController {
     
     private func fetchAllCasts() {
         
-        self.navigationController?.showPresentLoadindView(true)
+        self.tabBarController?.showPresentLoadindView(true)
         /// faks indicator
         indicator.startAnimating()
 
@@ -169,7 +169,7 @@ extension BroadcastsViewController : BroadcstFooterViewDelegate {
         
         guard let nextPageToken = self.nextPageToken else {return}
         
-        self.navigationController?.showPresentLoadindView(true)
+        self.tabBarController?.showPresentLoadindView(true)
 
         var broadcasts = [Broadcast]()
         APIManager.shared.allCastsRequest(page: nextPageToken) { (index, error) in
@@ -185,3 +185,4 @@ extension BroadcastsViewController : BroadcstFooterViewDelegate {
     
     
 }
+

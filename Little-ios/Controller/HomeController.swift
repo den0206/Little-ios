@@ -29,20 +29,11 @@ class HomeController : UIViewController {
     private let logoImageView : UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "little")
-        iv.setDimension(width: 200, height: 200)
+        iv.setDimension(width: 250, height: 250)
         return iv
     }()
     
-    private let sideMenuButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.tintColor = .white
-        button.setImage(UIImage(systemName: "text.justify"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setDimension(width: 100, height: 100)
-        button.addTarget(self, action: #selector(sideMenuTapped), for: .touchUpInside)
-        return button
-    }()
-    
+
 
     
     override func viewDidLoad() {
@@ -65,14 +56,9 @@ class HomeController : UIViewController {
         
         view.addSubview(logoImageView)
         logoImageView.centerX(inView: view)
-        logoImageView.anchor(top : view.safeAreaLayoutGuide.topAnchor,paddingTop: 50)
-        
-        view.addSubview(sideMenuButton)
-        sideMenuButton.anchor(top : view.safeAreaLayoutGuide.topAnchor, left:  view.safeAreaLayoutGuide.leftAnchor, paddingTop: 16,paddingLeft: 20, width: 30,height: 30)
-        
+        logoImageView.anchor(top : view.safeAreaLayoutGuide.topAnchor,paddingTop: 150)
         
 
-        
 
     }
     
@@ -85,3 +71,4 @@ class HomeController : UIViewController {
     
     
 }
+
