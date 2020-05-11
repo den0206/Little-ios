@@ -11,41 +11,7 @@ import Foundation
 struct APIManager {
     
     static let shared = APIManager()
-    
-    //MARK: - fetch One Broadcast
-    
-    func oneCastRequest(number : Int, completion : @escaping(Broadcast?, Error?) -> Void) {
-        
-        let requestUrl = kONECAST_URL + "\(number)"
-        
-        guard let url = URL(string: requestUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {return}
-        
-        let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: url) { (data, response, error) in
-            
-            if error != nil {
-                print(error!.localizedDescription)
-                completion(nil,error)
-                return
-            }
-            
-            do {
-                guard let safedata = data else {return}
-                let  decorder = JSONDecoder()
-                let broadcast = try decorder.decode(Broadcast.self, from: safedata)
-                
-                DispatchQueue.main.async {
-                    completion(broadcast,nil)
-                }
-            }
-            catch(let error) {
-                print(error.localizedDescription)
-            }
-            
-        }
-        
-        task.resume()
-    }
+
     
     //MARK: - fetch all broadcasts pagenation
     
@@ -77,6 +43,41 @@ struct APIManager {
         
     }
     
+    //MARK: - fetch One Broadcast
+       
+       func oneCastRequest(number : Int, completion : @escaping(Words?, Error?) -> Void) {
+           
+           let requestUrl = kONECAST_URL + "\(number)"
+           
+           guard let url = URL(string: requestUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {return}
+           
+           let session = URLSession(configuration: .default)
+           let task = session.dataTask(with: url) { (data, response, error) in
+               
+               if error != nil {
+                   print(error!.localizedDescription)
+                   completion(nil,error)
+                   return
+               }
+               
+               do {
+                   guard let safedata = data else {return}
+                   let  decorder = JSONDecoder()
+                   let words = try decorder.decode(Words.self, from: safedata)
+                   
+                   DispatchQueue.main.async {
+                       completion(words,nil)
+                   }
+               }
+               catch(let error) {
+                   print(error.localizedDescription)
+               }
+               
+           }
+           
+           task.resume()
+       }
+    
     
     
     
@@ -85,12 +86,12 @@ struct APIManager {
 //MARK: - Example
 
 private func fetchBroadcast() {
-     APIManager.shared.oneCastRequest(number: 4) { (broadcast, error) in
-
-         guard var broadcast = broadcast else {return}
-         broadcast.wawos.append(broadcast.snippet.waka)
-         print(broadcast.wawos)
-     }
+//     APIManager.shared.oneCastRequest(number: 4) { (broadcast, error) in
+//
+//         guard var broadcast = broadcast else {return}
+//         broadcast.wawos.append(broadcast.snippet.waka)
+//         print(broadcast.wawos)
+//     }
 
      
  }

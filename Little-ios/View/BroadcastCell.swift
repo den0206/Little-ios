@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import SDWebImage
 
-class BroadcaastCell : UICollectionViewCell {
+class BroadcastCell : UICollectionViewCell {
     
-    var snippet : Snippet? {
+    var broadcast : Broadcast? {
         didSet {
            comfigure()
         }
@@ -30,11 +31,11 @@ class BroadcaastCell : UICollectionViewCell {
     private let imageView : UIImageView = {
         
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.setDimension(width: 160, height: 160)
-        iv.backgroundColor = .systemBackground
+        iv.contentMode = .scaleToFill
+        iv.setDimension(width: 200, height: 200)
+        iv.backgroundColor = .lightGray
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 160 / 2
+        iv.layer.cornerRadius = 200 / 2
         iv.image = #imageLiteral(resourceName: "リトル")
         return iv
     }()
@@ -75,11 +76,6 @@ class BroadcaastCell : UICollectionViewCell {
     }()
     
     private lazy var wakaTextView : UITextView = {
-//          let tv = UITextView()
-//          tv.backgroundColor = .clear
-//          tv.font = UIFont.systemFont(ofSize: 16)
-//          tv.isScrollEnabled = false
-//          tv.isEditable = false
           return configureTextView()
       }()
     
@@ -111,11 +107,7 @@ class BroadcaastCell : UICollectionViewCell {
         return configureBubbleContainerView(color: UIColor(red: 255 / 255, green: 193 / 255, blue: 213 / 255, alpha: 1), tv: kasuTextView)
         
     }()
-    
-    
-    
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -166,6 +158,7 @@ class BroadcaastCell : UICollectionViewCell {
         addSubview(kasuBubble)
         kasuBubble.centerY(inView: kasuImage)
         kasuBubble.anchor(right: kasuImage.leftAnchor,paddingRight: 20)
+        
 
         
         
@@ -192,15 +185,18 @@ class BroadcaastCell : UICollectionViewCell {
     
     private func comfigure() {
         
-        guard let snippet = snippet else {return}
+        guard let broadcast = broadcast else {return}
         
-        numberLabel.text = "第\(snippet.number)回"
-        dateLabel.text = snippet.date
+        numberLabel.text = "第\(broadcast.number)回"
+        dateLabel.text = broadcast.date
         
-        guestLabel?.text = "GUEST: \(snippet.guest)"
+        guestLabel?.text = broadcast.guest
         
-        wakaTextView.text = snippet.waka
-        kasuTextView.text = snippet.kasu
+        wakaTextView.text = broadcast.waka
+        kasuTextView.text = broadcast.kasu
+        
+        let url = URL(string: broadcast.image)
+        imageView.sd_setImage(with: url)
         
         
     }

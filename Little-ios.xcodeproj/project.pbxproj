@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,9 +19,9 @@
 		3AA82BB92466ED6600217C76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AA82BB72466ED6600217C76 /* LaunchScreen.storyboard */; };
 		3AA82BC12466EDF700217C76 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BC02466EDF700217C76 /* HomeController.swift */; };
 		3AA82BC42466EEA200217C76 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BC32466EEA200217C76 /* APIManager.swift */; };
-		3AA82BC82466F23F00217C76 /* Broadcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BC72466F23F00217C76 /* Broadcast.swift */; };
 		3AD20C43246840810041FDFC /* BroadcastFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD20C42246840810041FDFC /* BroadcastFooterView.swift */; };
 		3AD552E92467BF3B0089853A /* BroadcastsViewCopntroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */; };
+		DB63DBD216F7F2FE825EF509 /* Pods_Little_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467D516AABBE5B8930DB1F10 /* Pods_Little_ios.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,9 +39,11 @@
 		3AA82BBA2466ED6600217C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AA82BC02466EDF700217C76 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		3AA82BC32466EEA200217C76 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		3AA82BC72466F23F00217C76 /* Broadcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Broadcast.swift; sourceTree = "<group>"; };
 		3AD20C42246840810041FDFC /* BroadcastFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastFooterView.swift; sourceTree = "<group>"; };
 		3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastsViewCopntroller.swift; sourceTree = "<group>"; };
+		467D516AABBE5B8930DB1F10 /* Pods_Little_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Little_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		829B60CE7C05BF9B38A8DC42 /* Pods-Little-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Little-ios.release.xcconfig"; path = "Target Support Files/Pods-Little-ios/Pods-Little-ios.release.xcconfig"; sourceTree = "<group>"; };
+		ED82DDA2DC31CFBB05234F75 /* Pods-Little-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Little-ios.debug.xcconfig"; path = "Target Support Files/Pods-Little-ios/Pods-Little-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB63DBD216F7F2FE825EF509 /* Pods_Little_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +81,8 @@
 			children = (
 				3AA82BAB2466ED6400217C76 /* Little-ios */,
 				3AA82BAA2466ED6400217C76 /* Products */,
+				9DFB35EDE2793A8EF8BEFAD0 /* Pods */,
+				F604657499A3D8D12925BF0E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				3A553A292466FD410057EBDF /* Index.swift */,
-				3AA82BC72466F23F00217C76 /* Broadcast.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -134,6 +138,23 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		9DFB35EDE2793A8EF8BEFAD0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ED82DDA2DC31CFBB05234F75 /* Pods-Little-ios.debug.xcconfig */,
+				829B60CE7C05BF9B38A8DC42 /* Pods-Little-ios.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F604657499A3D8D12925BF0E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				467D516AABBE5B8930DB1F10 /* Pods_Little_ios.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,9 +162,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AA82BBD2466ED6600217C76 /* Build configuration list for PBXNativeTarget "Little-ios" */;
 			buildPhases = (
+				07B05112F9ACBE4E30F2D6A6 /* [CP] Check Pods Manifest.lock */,
 				3AA82BA52466ED6400217C76 /* Sources */,
 				3AA82BA62466ED6400217C76 /* Frameworks */,
 				3AA82BA72466ED6400217C76 /* Resources */,
+				843FB41738E666576F19E10F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -199,6 +222,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07B05112F9ACBE4E30F2D6A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Little-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		843FB41738E666576F19E10F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Little-ios/Pods-Little-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Little-ios/Pods-Little-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Little-ios/Pods-Little-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3AA82BA52466ED6400217C76 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -212,7 +277,6 @@
 				3AA82BAF2466ED6400217C76 /* SceneDelegate.swift in Sources */,
 				3A19DB672467963300AF9AF8 /* SideMenuController.swift in Sources */,
 				3AA82BC12466EDF700217C76 /* HomeController.swift in Sources */,
-				3AA82BC82466F23F00217C76 /* Broadcast.swift in Sources */,
 				3A295EFC2467D1EC00020272 /* BroadcastCell.swift in Sources */,
 				3A553A2D246702390057EBDF /* sec.swift in Sources */,
 				3AD20C43246840810041FDFC /* BroadcastFooterView.swift in Sources */,
@@ -350,6 +414,7 @@
 		};
 		3AA82BBE2466ED6600217C76 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED82DDA2DC31CFBB05234F75 /* Pods-Little-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -368,6 +433,7 @@
 		};
 		3AA82BBF2466ED6600217C76 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 829B60CE7C05BF9B38A8DC42 /* Pods-Little-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

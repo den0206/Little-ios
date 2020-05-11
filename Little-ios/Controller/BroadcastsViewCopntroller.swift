@@ -13,12 +13,12 @@ private let footerIdentifer = "footerView"
 
 class BroadcastsViewController : UICollectionViewController {
     
-    var broadcasts = [Snippet]() {
+    var broadcasts = [Broadcast]() {
         didSet {
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                
+                self.indicator.stopAnimating()
                 self.navigationController?.showPresentLoadindView(false)
 
             }
@@ -26,10 +26,11 @@ class BroadcastsViewController : UICollectionViewController {
     }
     
     var nextPageToken : Int?
+    /// fale indicatoe for hide footerView
+    let indicator = UIActivityIndicatorView()
     
     var viewWidth: CGFloat!
     var viewHeight: CGFloat!
-   
     var cellOffset: CGFloat!
     var navHeight: CGFloat!
     
@@ -65,7 +66,7 @@ class BroadcastsViewController : UICollectionViewController {
         collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 50, right: 24)
         collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 50, right: 24)
         
-        collectionView.register(BroadcaastCell.self, forCellWithReuseIdentifier: reuseIdentifer)
+        collectionView.register(BroadcastCell.self, forCellWithReuseIdentifier: reuseIdentifer)
         collectionView.register(BroadcstFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifer)
         
         
@@ -78,11 +79,13 @@ class BroadcastsViewController : UICollectionViewController {
     private func fetchAllCasts() {
         
         self.navigationController?.showPresentLoadindView(true)
+        /// faks indicator
+        indicator.startAnimating()
 
         APIManager.shared.allCastsRequest { (index, error) in
             guard let index = index else {return}
             /// self.nextPageToken = index.pagenation.pagenation.next
-            self.broadcasts = index.broadcats
+            self.broadcasts = index.broadcasts
             self.nextPageToken = index.pagenation.pagenation.next
            
         }
@@ -98,9 +101,9 @@ extension BroadcastsViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifer, for: indexPath) as! BroadcaastCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifer, for: indexPath) as! BroadcastCell
         
-        cell.snippet = broadcasts[indexPath.item]
+        cell.broadcast = broadcasts[indexPath.item]
         return cell
     }
     
@@ -135,7 +138,9 @@ extension BroadcastsViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
-        
+        if indicator.isAnimating {
+            return CGSize.zero
+        }
         return CGSize(width: 100, height: 0)
     }
     
@@ -151,13 +156,13 @@ extension BroadcastsViewController : BroadcstFooterViewDelegate {
         
         self.navigationController?.showPresentLoadindView(true)
 
-        var snippets = [Snippet]()
+        var broadcasts = [Broadcast]()
         APIManager.shared.allCastsRequest(page: nextPageToken) { (index, error) in
             guard let index = index else {return}
             
-            snippets = index.broadcats
+            broadcasts = index.broadcasts
             
-            self.broadcasts.append(contentsOf: snippets)
+            self.broadcasts.append(contentsOf: broadcasts)
             self.nextPageToken = index.pagenation.pagenation.next
             
         }

@@ -49,7 +49,7 @@ class HomeController : UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        
+    
         
     }
     
