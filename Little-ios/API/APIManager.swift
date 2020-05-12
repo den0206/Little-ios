@@ -84,14 +84,3 @@ struct APIManager {
 }
 
 //MARK: - Example
-
-private func fetchBroadcast() {
-//     APIManager.shared.oneCastRequest(number: 4) { (broadcast, error) in
-//
-//         guard var broadcast = broadcast else {return}
-//         broadcast.wawos.append(broadcast.snippet.waka)
-//         print(broadcast.wawos)
-//     }
-
-     
- }

@@ -15,6 +15,10 @@ class DetailViewController : UIViewController {
     
     let broadcast : Broadcast
     
+    var wawos = [String]()
+    var kawos = [String]()
+
+    
     //MARK: - Parts
     
     lazy var headerView : DetailHeaderView = {
@@ -52,8 +56,9 @@ class DetailViewController : UIViewController {
         super.viewDidLoad()
         
         congifureUI()
-        
         configureCV()
+        
+        fetchWords()
         
     }
     
@@ -74,7 +79,6 @@ class DetailViewController : UIViewController {
     
 
 
-    
     //MARK: - UI
     
     private func congifureUI() {
@@ -93,10 +97,30 @@ class DetailViewController : UIViewController {
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifer)
         collectionView.register(WordHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer)
+        collectionView.isScrollEnabled = true
         
         collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
         collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
     
+    }
+    
+    //MARK: - API
+    
+    private func fetchWords() {
+        APIManager.shared.oneCastRequest(number: broadcast.number) { (words, error) in
+            
+            if error != nil {
+                print(error!.localizedDescription)
+                self.showErrorAlert(message: error!.localizedDescription)
+            }
+            
+            guard let words = words else {return}
+            
+            self.wawos = words.wawos
+            self.kawos = words.kawos
+            
+            self.collectionView.reloadData()
+        }
     }
 
     
@@ -109,7 +133,15 @@ extension DetailViewController : UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        
+        switch section {
+        case 0:
+            return wawos.count
+        case 1:
+            return kawos.count
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -130,7 +162,6 @@ extension DetailViewController : UICollectionViewDelegate, UICollectionViewDataS
             switch (indexPath.section) {
             case 0:
                 header.word = broadcast.waka
-                print(broadcast.waka)
                 header.type = .waka
                 
                 return header
@@ -157,10 +188,10 @@ extension DetailViewController : UICollectionViewDelegate, UICollectionViewDataS
 extension DetailViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        
+
+
         return UIEdgeInsets(top: 10.0, left: 0, bottom: 10.0, right: 0)
-        
+
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 100)
