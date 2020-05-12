@@ -8,11 +8,12 @@
 
 import UIKit
 
+private let reuseIdentifer = "wordsCell"
+private let headerIdentifer = "HeaderView"
+
 class DetailViewController : UIViewController {
     
     let broadcast : Broadcast
-    
-    
     
     //MARK: - Parts
     
@@ -23,9 +24,17 @@ class DetailViewController : UIViewController {
         return view
     }()
     
-    var collectionView : UICollectionView = {
+    private let separateView : UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    lazy var collectionView : UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        cv.backgroundColor = .red
+        cv.backgroundColor = .lightGray
+        cv.delegate = self
+        cv.dataSource = self
         return cv
     }()
     
@@ -44,7 +53,8 @@ class DetailViewController : UIViewController {
         
         congifureUI()
         
-//        setParameter()
+        configureCV()
+        
     }
     
 
@@ -62,11 +72,7 @@ class DetailViewController : UIViewController {
 
     }
     
-//    private func setParameter() {
-//
-//        let url = URL(string: broadcast.image)
-//        imageView.sd_setImage(with: url)
-//    }
+
 
     
     //MARK: - UI
@@ -76,14 +82,89 @@ class DetailViewController : UIViewController {
         
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 400)
         view.addSubview(headerView)
-
+        
 
         collectionView.frame = CGRect(x: 0, y: 400, width: view.frame.width, height: view.frame.height)
 
         view.addSubview(collectionView)
     }
+    
+    private func configureCV() {
+        
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifer)
+        collectionView.register(WordHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer)
+        
+        collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
+        collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
+    
+    }
 
     
+}
+
+extension DetailViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifer, for: indexPath)
+        
+        cell.backgroundColor = .white
+        return cell
+    }
+    
+    /// header
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer, for: indexPath) as! WordHeaderView
+        
+        if kind == UICollectionView.elementKindSectionHeader {
+            
+            switch (indexPath.section) {
+            case 0:
+                header.word = broadcast.waka
+                print(broadcast.waka)
+                header.type = .waka
+                
+                return header
+            case 1:
+                header.word = broadcast.kasu
+
+                header.type = .kasu
+                
+                return header
+            default:
+                return header
+            }
+        }
+        
+        return UICollectionReusableView()
+     
+    }
+    
+    
+    
+    
+}
+
+extension DetailViewController : UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        
+        return UIEdgeInsets(top: 10.0, left: 0, bottom: 10.0, right: 0)
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 100)
+    }
 }
 
 extension DetailViewController : DetailHeaderViewDelegate {

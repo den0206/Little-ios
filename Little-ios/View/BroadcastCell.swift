@@ -32,10 +32,10 @@ class BroadcastCell : UICollectionViewCell {
         
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
-        iv.setDimension(width: 200, height: 200)
+        iv.setDimension(width: 180, height: 180)
         iv.backgroundColor = .lightGray
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 200 / 2
+        iv.layer.cornerRadius = 180 / 2
 //        iv.isUserInteractionEnabled = false
 //
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedImageView))
@@ -151,9 +151,10 @@ class BroadcastCell : UICollectionViewCell {
         addSubview(wakaBubble)
         wakaBubble.centerY(inView: wakaImage)
         wakaBubble.anchor(left :wakaImage.rightAnchor, paddingLeft: 20)
+        wakaBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
         
         addSubview(kasuImage)
-        kasuImage.anchor(top : wakaImage.bottomAnchor,right:  rightAnchor,paddingTop: 50,paddingRight: 10)
+        kasuImage.anchor(top : wakaImage.bottomAnchor, right: rightAnchor,paddingTop: 50,paddingRight: 10)
         
         
         kasuTextView.text =  "Test"
@@ -161,7 +162,8 @@ class BroadcastCell : UICollectionViewCell {
         
         addSubview(kasuBubble)
         kasuBubble.centerY(inView: kasuImage)
-        kasuBubble.anchor(right: kasuImage.leftAnchor,paddingRight: 20)
+        kasuBubble.anchor( right: kasuImage.leftAnchor,paddingRight: 20)
+        kasuBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
         
     }
     

@@ -55,8 +55,8 @@ class BroadcastsViewController : UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isHidden = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
 
     }
     
@@ -70,8 +70,8 @@ class BroadcastsViewController : UICollectionViewController {
         collectionView.backgroundColor = .black
         
 //
-        collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 50, right: 24)
-        collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 50, right: 24)
+        collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 24)
+        collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 24)
         
         collectionView.register(BroadcastCell.self, forCellWithReuseIdentifier: reuseIdentifer)
         collectionView.register(BroadcstFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifer)
@@ -140,7 +140,7 @@ extension BroadcastsViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellWidth = viewWidth-75
-        let cellHeight = viewHeight-300
+        let cellHeight = viewHeight-150
         
         cellOffset = viewWidth-cellWidth
         return CGSize(width: cellWidth, height: cellHeight)
