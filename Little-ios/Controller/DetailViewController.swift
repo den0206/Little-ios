@@ -58,7 +58,12 @@ class DetailViewController : UIViewController {
         congifureUI()
         configureCV()
         
-        fetchWords()
+      
+        
+        //        self.collectionView.reloadData()
+        
+        
+                fetchWords()
         
     }
     
@@ -84,23 +89,28 @@ class DetailViewController : UIViewController {
     private func congifureUI() {
         view.backgroundColor = .lightGray
         
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 400)
+        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 380)
         view.addSubview(headerView)
         
-
+        headerView.addSubview(separateView)
+        separateView.anchor(left : headerView.leftAnchor,bottom: headerView.bottomAnchor,right: headerView.rightAnchor,height: 2)
+        
         collectionView.frame = CGRect(x: 0, y: 400, width: view.frame.width, height: view.frame.height)
 
         view.addSubview(collectionView)
+        
+        
     }
     
     private func configureCV() {
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifer)
-        collectionView.register(WordHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer)
-        collectionView.isScrollEnabled = true
+        collectionView.register(ImageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer)
         
-        collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
-        collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
+//        collectionView.isScrollEnabled = true
+        
+//        collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
+//        collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
     
     }
     
@@ -115,11 +125,16 @@ class DetailViewController : UIViewController {
             }
             
             guard let words = words else {return}
-            
+            //
             self.wawos = words.wawos
             self.kawos = words.kawos
             
-            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+//                self.collectionView.collectionViewLayout.invalidateLayout()
+
+            }
+            
         }
     }
 
@@ -155,29 +170,25 @@ extension DetailViewController : UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer, for: indexPath) as! WordHeaderView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer, for: indexPath) as! ImageHeaderView
         
-        if kind == UICollectionView.elementKindSectionHeader {
+        
+        switch (indexPath.section) {
+        case 0:
             
-            switch (indexPath.section) {
-            case 0:
-                header.word = broadcast.waka
-                header.type = .waka
-                
-                return header
-            case 1:
-                header.word = broadcast.kasu
-
-                header.type = .kasu
-                
-                return header
-            default:
-                return header
-            }
+            header.type = .waka
+            
+            return header
+        case 1:
+            
+            header.type = .kasu
+            
+            return header
+        default:
+            return header
         }
         
-        return UICollectionReusableView()
-     
+        
     }
     
     
@@ -193,8 +204,13 @@ extension DetailViewController : UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 10.0, left: 0, bottom: 10.0, right: 0)
 
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 50)
     }
 }
 

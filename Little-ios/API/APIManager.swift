@@ -8,10 +8,10 @@
 
 import Foundation
 
+
 struct APIManager {
     
     static let shared = APIManager()
-
     
     //MARK: - fetch all broadcasts pagenation
     
@@ -43,43 +43,41 @@ struct APIManager {
         
     }
     
-    //MARK: - fetch One Broadcast
+//    MARK: - fetch One Broadcast
        
        func oneCastRequest(number : Int, completion : @escaping(Words?, Error?) -> Void) {
-           
+
            let requestUrl = kONECAST_URL + "\(number)"
-           
+
            guard let url = URL(string: requestUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {return}
-           
+
            let session = URLSession(configuration: .default)
            let task = session.dataTask(with: url) { (data, response, error) in
-               
+
                if error != nil {
                    print(error!.localizedDescription)
                    completion(nil,error)
                    return
                }
-               
+
                do {
-                   guard let safedata = data else {return}
-                   let  decorder = JSONDecoder()
-                   let words = try decorder.decode(Words.self, from: safedata)
-                   
-                   DispatchQueue.main.async {
-                       completion(words,nil)
-                   }
+                guard let safedata = data else {return}
+                let  decorder = JSONDecoder()
+                let words = try decorder.decode(Words.self, from: safedata)
+
+                completion(words,nil)
+
                }
                catch(let error) {
                    print(error.localizedDescription)
                }
-               
+
            }
-           
+
            task.resume()
        }
-    
-    
-    
+
+
     
 }
 

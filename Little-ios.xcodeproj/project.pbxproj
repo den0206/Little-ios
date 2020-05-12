@@ -21,6 +21,7 @@
 		3AA82BB92466ED6600217C76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AA82BB72466ED6600217C76 /* LaunchScreen.storyboard */; };
 		3AA82BC12466EDF700217C76 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BC02466EDF700217C76 /* HomeController.swift */; };
 		3AA82BC42466EEA200217C76 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA82BC32466EEA200217C76 /* APIManager.swift */; };
+		3AB53F5E246AEF0A006BBB51 /* ImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB53F5D246AEF0A006BBB51 /* ImageHeaderView.swift */; };
 		3AD20C43246840810041FDFC /* BroadcastFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD20C42246840810041FDFC /* BroadcastFooterView.swift */; };
 		3AD552E92467BF3B0089853A /* BroadcastsViewCopntroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */; };
 		DB63DBD216F7F2FE825EF509 /* Pods_Little_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467D516AABBE5B8930DB1F10 /* Pods_Little_ios.framework */; };
@@ -43,6 +44,7 @@
 		3AA82BBA2466ED6600217C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AA82BC02466EDF700217C76 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		3AA82BC32466EEA200217C76 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		3AB53F5D246AEF0A006BBB51 /* ImageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderView.swift; sourceTree = "<group>"; };
 		3AD20C42246840810041FDFC /* BroadcastFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastFooterView.swift; sourceTree = "<group>"; };
 		3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastsViewCopntroller.swift; sourceTree = "<group>"; };
 		467D516AABBE5B8930DB1F10 /* Pods_Little_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Little_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				3A73111424699414008AEFBA /* DetailHeaderView.swift */,
+				3AB53F5D246AEF0A006BBB51 /* ImageHeaderView.swift */,
 				3A767BB3246AB81800E4A627 /* WordHeaderView.swift */,
 			);
 			path = Detail;
@@ -286,6 +289,7 @@
 				3A73110E24696ED4008AEFBA /* DetailViewController.swift in Sources */,
 				3A767BB4246AB81800E4A627 /* WordHeaderView.swift in Sources */,
 				3AD552E92467BF3B0089853A /* BroadcastsViewCopntroller.swift in Sources */,
+				3AB53F5E246AEF0A006BBB51 /* ImageHeaderView.swift in Sources */,
 				3A73111224698307008AEFBA /* MainTabController.swift in Sources */,
 				3AA82BC42466EEA200217C76 /* APIManager.swift in Sources */,
 				3AA82BAD2466ED6400217C76 /* AppDelegate.swift in Sources */,

@@ -104,13 +104,13 @@ class DetailHeaderView : UIView {
         if let guestLabel = guestLabel, guestLabel.text != "" {
             addSubview(guestLabel)
             guestLabel.anchor(top : dateLabel.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
-            
-            addSubview(separatorView)
-            separatorView.anchor(top: guestLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
-        } else {
-            addSubview(separatorView)
-            separatorView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
         }
+//            addSubview(separatorView)
+//            separatorView.anchor(top: guestLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+//        } else {
+//            addSubview(separatorView)
+//            separatorView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+//        }
         
     }
     

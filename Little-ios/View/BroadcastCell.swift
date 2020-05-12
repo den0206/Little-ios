@@ -144,14 +144,14 @@ class BroadcastCell : UICollectionViewCell {
         }
         
         addSubview(wakaImage)
-        wakaImage.anchor(top : separatorView.bottomAnchor,left: leftAnchor,paddingTop: 50,paddingLeft: 10)
+        wakaImage.anchor(top : separatorView.bottomAnchor,left: leftAnchor,paddingTop: 25,paddingLeft: 10)
         
         wakaTextView.text =  "Test"
         
         addSubview(wakaBubble)
         wakaBubble.centerY(inView: wakaImage)
         wakaBubble.anchor(left :wakaImage.rightAnchor, paddingLeft: 20)
-        wakaBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
+        wakaBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
         
         addSubview(kasuImage)
         kasuImage.anchor(top : wakaImage.bottomAnchor, right: rightAnchor,paddingTop: 50,paddingRight: 10)
@@ -163,7 +163,7 @@ class BroadcastCell : UICollectionViewCell {
         addSubview(kasuBubble)
         kasuBubble.centerY(inView: kasuImage)
         kasuBubble.anchor( right: kasuImage.leftAnchor,paddingRight: 20)
-        kasuBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
+        kasuBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
         
     }
     

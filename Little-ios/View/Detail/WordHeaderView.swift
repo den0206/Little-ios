@@ -8,10 +8,6 @@
 
 import UIKit
 
-enum WordType {
-    case waka
-    case kasu
-}
 
 class WordHeaderView : UICollectionReusableView {
     
@@ -56,11 +52,35 @@ class WordHeaderView : UICollectionReusableView {
         return view
     }()
     
+    var imageLeftAnchor : NSLayoutConstraint!
+    var imageRightAnchor : NSLayoutConstraint!
+
     var bubbleLeftAnchor : NSLayoutConstraint!
     var bubbleRightAnchor : NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(profileImageView)
+        profileImageView.anchor(top: topAnchor,paddingTop : 8)
+        
+        imageLeftAnchor = profileImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16)
+        imageLeftAnchor.isActive = false
+        imageRightAnchor = profileImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+        imageRightAnchor.isActive = false
+        
+        
+        addSubview(bubbleContainer)
+        bubbleContainer.centerY(inView: profileImageView)
+        bubbleContainer.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
+        
+        bubbleLeftAnchor = bubbleContainer.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 20)
+        bubbleLeftAnchor.isActive = false
+        bubbleRightAnchor = bubbleContainer.rightAnchor.constraint(equalTo: profileImageView.leftAnchor, constant: -12)
+        bubbleRightAnchor.isActive = false
+        
+
+        addSubview(textView)
+        textView.anchor(top : bubbleContainer.topAnchor, left:  bubbleContainer.leftAnchor, bottom: bubbleContainer.bottomAnchor, right: bubbleContainer.rightAnchor,paddingTop: 4,paddingLeft: 12,paddingBottom: 4,paddingRight: 12)
 
     }
 
@@ -72,36 +92,12 @@ class WordHeaderView : UICollectionReusableView {
     func configure() {
         switch type {
         case .waka:
-            addSubview(profileImageView)
-            profileImageView.anchor(top: topAnchor, left : leftAnchor ,paddingTop : 8,paddingLeft: 16)
-            
-            profileImageView.image = #imageLiteral(resourceName: "xSUbWKN2efIREtE1554983677_1554983709")
-            addSubview(bubbleContainer)
-            bubbleContainer.centerY(inView: profileImageView)
-            bubbleContainer.anchor(left : profileImageView.rightAnchor, paddingLeft: 16)
-            bubbleContainer.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
-            
-            
-            
-           
-            addSubview(textView)
-            textView.anchor(top : bubbleContainer.topAnchor, left:  bubbleContainer.leftAnchor, bottom: bubbleContainer.bottomAnchor, right: bubbleContainer.rightAnchor,paddingTop: 4,paddingLeft: 12,paddingBottom: 4,paddingRight: 12)
+            imageLeftAnchor.isActive = true
+            bubbleLeftAnchor.isActive = true
         case .kasu :
-            addSubview(profileImageView)
-            profileImageView.anchor(top: topAnchor, right: rightAnchor ,paddingTop : 8,paddingRight: 16)
+            imageRightAnchor.isActive = true
+            bubbleRightAnchor.isActive = true
             
-            profileImageView.image = #imageLiteral(resourceName: "FeYVMuZZVYt1R7c1554983733_1554983761")
-            bubbleContainer.backgroundColor = UIColor(red: 255 / 255, green: 193 / 255, blue: 213 / 255, alpha: 1)
-            
-            addSubview(bubbleContainer)
-            bubbleContainer.centerY(inView: profileImageView)
-            bubbleContainer.anchor(right : profileImageView.leftAnchor, paddingRight: 16)
-            bubbleContainer.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
-            
-            
-            
-            addSubview(textView)
-            textView.anchor(top : bubbleContainer.topAnchor, left:  bubbleContainer.leftAnchor, bottom: bubbleContainer.bottomAnchor, right: bubbleContainer.rightAnchor,paddingTop: 4,paddingLeft: 12,paddingBottom: 4,paddingRight: 12)
         case .none :
             break
         }
