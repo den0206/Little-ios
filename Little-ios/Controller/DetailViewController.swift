@@ -58,16 +58,11 @@ class DetailViewController : UIViewController {
         congifureUI()
         configureCV()
         
-      
-        
-        //        self.collectionView.reloadData()
-        
-        
-                fetchWords()
+        fetchWords()
         
     }
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -104,13 +99,14 @@ class DetailViewController : UIViewController {
     
     private func configureCV() {
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifer)
+        collectionView.register(WordsCell.self, forCellWithReuseIdentifier: reuseIdentifer)
         collectionView.register(ImageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer)
         
-//        collectionView.isScrollEnabled = true
+        collectionView.alwaysBounceVertical = true
+        collectionView.isScrollEnabled = true
         
-//        collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
-//        collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 25, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 25, left: 0, bottom: 155, right: 0)
+        collectionView.horizontalScrollIndicatorInsets = UIEdgeInsets(top: 25, left: 0, bottom: 155, right: 0)
     
     }
     
@@ -160,10 +156,25 @@ extension DetailViewController : UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifer, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifer, for: indexPath) as! WordsCell
         
-        cell.backgroundColor = .white
-        return cell
+//        var word : String
+//        var backGroundColor : UIColor
+//
+        switch indexPath.section {
+        case 0:
+            cell.word = wawos[indexPath.item]
+            cell.bubbleContainer.backgroundColor = .systemBackground
+            
+            return cell
+        case 1 :
+            cell.word = kawos[indexPath.item]
+            cell.bubbleContainer.backgroundColor = UIColor(red: 255 / 255, green: 193 / 255, blue: 213 / 255, alpha: 1)
+            return cell
+        default:
+            return cell
+        }
+        
     }
     
     /// header
@@ -201,17 +212,49 @@ extension DetailViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
 
-        return UIEdgeInsets(top: 10.0, left: 0, bottom: 10.0, right: 0)
+        return UIEdgeInsets(top: 10.0, left: 0, bottom: 50.0, right: 0)
 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 100)
+        
+//        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+//        let estimatedSizeCell = WordsCell(frame: frame)
+//
+        var word : String
+        
+        switch indexPath.section {
+        case 0:
+            word = wawos[indexPath.item]
+        case 1 :
+            word = kawos[indexPath.item]
+        
+        default:
+            word = ""
+        }
+//
+        var height: CGFloat = 80 //Arbitrary number
+      
+            height = estimatedFrameForText(text: word).height + 30
+        
+        return CGSize(width: view.frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        
+        
         return CGSize(width: view.frame.width, height: 50)
     }
+    
+    private func estimatedFrameForText(text: String) -> CGRect {
+        let size = CGSize(width: 250, height: 250)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
+    }
+    
+    
 }
 
 extension DetailViewController : DetailHeaderViewDelegate {
