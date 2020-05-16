@@ -49,7 +49,7 @@ class BroadcastsViewController : UICollectionViewController {
         super.viewDidLoad()
         
         configureCV()
-        fetchAllCasts()
+//        fetchAllCasts()
      
     }
     
@@ -102,7 +102,8 @@ extension BroadcastsViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return broadcasts.count
+        return 1
+//        return broadcasts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -139,8 +140,9 @@ extension BroadcastsViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        
         let cellWidth = viewWidth-75
-        let cellHeight = viewHeight-150
+        let cellHeight = viewHeight-200
         
         cellOffset = viewWidth-cellWidth
         return CGSize(width: cellWidth, height: cellHeight)

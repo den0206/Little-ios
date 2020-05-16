@@ -32,10 +32,10 @@ class BroadcastCell : UICollectionViewCell {
         
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
-        iv.setDimension(width: 180, height: 180)
-        iv.backgroundColor = .lightGray
+        iv.setDimension(width: 120, height: 120)
+        iv.backgroundColor = .black
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 180 / 2
+        iv.layer.cornerRadius = 120 / 2
 //        iv.isUserInteractionEnabled = false
 //
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedImageView))
@@ -65,6 +65,22 @@ class BroadcastCell : UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .systemBackground
         return view
+    }()
+    
+    //MARK: - Fotter VIew
+    
+    private let headerView : UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    
+    private let fotterView : UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+        
     }()
     
     private let wakaImage : UIImageView = {
@@ -118,52 +134,96 @@ class BroadcastCell : UICollectionViewCell {
         backgroundColor = .lightGray
         layer.cornerRadius = 35 / 2
         
-        addSubview(numberLabel)
-        numberLabel.centerX(inView: self)
-        numberLabel.anchor(top : self.topAnchor, paddingTop: 20)
+        headerView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height / 2)
+
+        addSubview(headerView)
         
-    
         
-        addSubview(imageView)
-        imageView.centerX(inView: self)
-        imageView.anchor(top : numberLabel.bottomAnchor, paddingTop: 20)
         
-        addSubview(dateLabel)
-        dateLabel.centerX(inView: self)
+        headerView.addSubview(numberLabel)
+        numberLabel.centerX(inView: headerView)
+        numberLabel.anchor(top : headerView.topAnchor, paddingTop: 10)
+
+        headerView.addSubview(imageView)
+        imageView.centerX(inView: headerView)
+        imageView.anchor(top : numberLabel.bottomAnchor, paddingTop: 10)
+
+        headerView.addSubview(dateLabel)
+        dateLabel.centerX(inView: headerView)
         dateLabel.anchor(top : imageView.bottomAnchor,paddingTop: 20)
-        
+
         if let guestLabel = guestLabel, guestLabel.text != "" {
-            addSubview(guestLabel)
+            headerView.addSubview(guestLabel)
             guestLabel.anchor(top : dateLabel.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
-            
-            addSubview(separatorView)
-            separatorView.anchor(top: guestLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+
+            headerView.addSubview(separatorView)
+            separatorView.anchor( left: leftAnchor, bottom: headerView.bottomAnchor, right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
         } else {
-            addSubview(separatorView)
-            separatorView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+            headerView.addSubview(separatorView)
+            separatorView.anchor(left: leftAnchor,  bottom : headerView.bottomAnchor, right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
         }
+//
         
-        addSubview(wakaImage)
-        wakaImage.anchor(top : separatorView.bottomAnchor,left: leftAnchor,paddingTop: 25,paddingLeft: 10)
+        fotterView.frame = CGRect(x: 0, y: frame.height / 2, width: frame.width, height: frame.height / 2)
+        addSubview(fotterView)
+        fotterView.anchor(top : headerView.bottomAnchor, left : leftAnchor,bottom: bottomAnchor, right: rightAnchor)
         
         wakaTextView.text =  "Test"
         
-        addSubview(wakaBubble)
-        wakaBubble.centerY(inView: wakaImage)
-        wakaBubble.anchor(left :wakaImage.rightAnchor, paddingLeft: 20)
+        
+        let wakaView = UIView()
+        wakaView.backgroundColor = .clear
+        
+        fotterView.addSubview(wakaView)
+        wakaView.anchor(top : fotterView.topAnchor,left: leftAnchor,right: rightAnchor,width: fotterView.frame.width,height: fotterView.frame.height / 2)
+        
+        wakaView.addSubview(wakaImage)
+        wakaImage.centerY(inView: wakaView,leftAnchor: wakaView.leftAnchor,paddingLeft: 10)
+        
+        wakaView.addSubview(wakaBubble)
+        wakaBubble.centerY(inView: wakaImage,leftAnchor: wakaImage.rightAnchor,paddingLeft: 20)
         wakaBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
         
-        addSubview(kasuImage)
-        kasuImage.anchor(top : wakaImage.bottomAnchor, right: rightAnchor,paddingTop: 50,paddingRight: 10)
+        let kasuView = UIView()
+        kasuView.backgroundColor = .clear
+        fotterView.addSubview(kasuView)
+        kasuView.anchor(top : wakaView.bottomAnchor,left:  leftAnchor,bottom: fotterView.bottomAnchor,right: rightAnchor,width: fotterView.frame.width,height: fotterView.frame.height / 2)
         
+        kasuView.addSubview(kasuImage)
+        kasuImage.centerY(inView: kasuView)
+        kasuImage.rightAnchor.constraint(equalTo: kasuView.rightAnchor,constant: -10).isActive = true
         
-        kasuTextView.text =  "Test"
-
-        
-        addSubview(kasuBubble)
+        kasuView.addSubview(kasuBubble)
         kasuBubble.centerY(inView: kasuImage)
-        kasuBubble.anchor( right: kasuImage.leftAnchor,paddingRight: 20)
+        kasuBubble.anchor(right: kasuImage.leftAnchor,paddingRight: 20)
         kasuBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+        
+
+    
+        
+//        addSubview(wakaImage)
+//        wakaImage.anchor(top : separatorView.bottomAnchor,left: leftAnchor,paddingTop: 25,paddingLeft: 10)
+//
+
+//
+//        addSubview(wakaBubble)
+//        wakaBubble.centerY(inView: wakaImage)
+//        wakaBubble.anchor(left :wakaImage.rightAnchor, paddingLeft: 20)
+//        wakaBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+//
+//        addSubview(kasuImage)
+//        kasuImage.anchor(top : wakaImage.bottomAnchor, right: rightAnchor,paddingTop: 50,paddingRight: 10)
+//
+//
+//        kasuTextView.text =  "Test"
+//
+//
+//        addSubview(kasuBubble)
+//        kasuBubble.centerY(inView: kasuImage)
+//        kasuBubble.anchor( right: kasuImage.leftAnchor,paddingRight: 20)
+//        kasuBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+//
+
         
     }
     

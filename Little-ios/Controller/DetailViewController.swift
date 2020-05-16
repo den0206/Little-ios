@@ -188,7 +188,6 @@ extension DetailViewController : UICollectionViewDelegate, UICollectionViewDataS
         case 0:
             
             header.type = .waka
-            
             return header
         case 1:
             
