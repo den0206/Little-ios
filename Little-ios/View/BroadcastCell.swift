@@ -207,6 +207,7 @@ class BroadcastCell : UICollectionViewCell {
         wakaView.addSubview(wakaBubble)
         wakaBubble.centerY(inView: wakaImage,leftAnchor: wakaImage.rightAnchor,paddingLeft: 20)
         wakaBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+        wakaBubble.heightAnchor.constraint(lessThanOrEqualToConstant: fotterView.frame.height / 2).isActive = true
         
         let kasuView = UIView()
         kasuView.backgroundColor = .clear
@@ -221,6 +222,8 @@ class BroadcastCell : UICollectionViewCell {
         kasuBubble.centerY(inView: kasuImage)
         kasuBubble.anchor(right: kasuImage.leftAnchor,paddingRight: 20)
         kasuBubble.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+        kasuBubble.heightAnchor.constraint(lessThanOrEqualToConstant: fotterView.frame.height / 2).isActive = true
+        
         
 
     

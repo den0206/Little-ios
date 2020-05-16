@@ -108,6 +108,30 @@ extension UIViewController {
             let blackView = UIView()
             blackView.frame = self.view.bounds
             blackView.backgroundColor = .white
+            
+//            let greenView = UIView(frame: CGRect(x: 0, y: 0, width: blackView.frame.width, height: blackView.frame.height / 3))
+//            greenView.backgroundColor = .green
+//
+//            //            blackView.addSubview(greenView)
+//
+//            let yelloView = UIView(frame: CGRect(x: 0, y: blackView.frame.height / 3, width: blackView.frame.height, height: blackView.frame.height / 3))
+//            yelloView.backgroundColor = .yellow
+//
+//            //            blackView.addSubview(yelloView)
+//
+//            let redView = UIView(frame: CGRect(x: 0, y: (blackView.frame.height / 3) * 2, width: blackView.frame.height , height: blackView.frame.height / 3))
+//            redView.backgroundColor = .red
+//
+//            //            blackView.addSubview(redView)
+//
+//            let rastViews = [greenView,yelloView,redView]
+//
+//            for view in rastViews {
+//                blackView.addSubview(view)
+//                view.alpha = 0
+//
+//            }
+            
             blackView.alpha = 0
             blackView.tag = 1
             
@@ -136,6 +160,11 @@ extension UIViewController {
             
             UIView.animate(withDuration: 0.2) {
                 blackView.alpha = 0.7
+//                for view in rastViews {
+//                    blackView.addSubview(view)
+//                    view.alpha = 0.7
+//
+//                }
             }
             
             

@@ -136,7 +136,14 @@ class HomeController : UIViewController {
         let eventDate = userCalender.date(from: sundayDatecomponents)!
         let timeLeft = userCalender.dateComponents([.hour,.month,.year,.day,.minute,.second], from: currentDate, to: eventDate)
         
-        timeLabel.text = "\(timeLeft.day!) Days, \(timeLeft.hour!) Hour,\n\(timeLeft.minute!) Minutes, \(timeLeft.second!) Secounds."
+        if timeLeft.day == 7 {
+            timeLabel.text = "0 Days, \(timeLeft.hour!) Hour,\n\(timeLeft.minute!) Minutes, \(timeLeft.second!) Secounds."
+
+        } else {
+            timeLabel.text = "\(timeLeft.day!) Days, \(timeLeft.hour!) Hour,\n\(timeLeft.minute!) Minutes, \(timeLeft.second!) Secounds."
+
+        }
+        
         
         endEvent(currentDate: currentDate, eventDate: eventDate)
         
