@@ -28,14 +28,14 @@ class BroadcastCell : UICollectionViewCell {
         return label
     }()
     
-    private let imageView : UIImageView = {
+    private lazy var imageView : UIImageView = {
         
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
-        iv.setDimension(width: 120, height: 120)
+        iv.setDimension(width: self.frame.height / 4, height: self.frame.height / 4)
         iv.backgroundColor = .black
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 120 / 2
+        iv.layer.cornerRadius = (self.frame.height / 4) / 2
 //        iv.isUserInteractionEnabled = false
 //
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedImageView))
@@ -138,30 +138,54 @@ class BroadcastCell : UICollectionViewCell {
 
         addSubview(headerView)
         
+//        if let guestLabel = guestLabel, guestLabel.text != "" {
+//
+//            let stack = UIStackView(arrangedSubviews: [numberLabel,imageView,dateLabel, guestLabel])
+//            stack.axis = .vertical
+//            stack.spacing = 10
+////            stack.distribution = .fillProportionally
+//
+//            headerView.addSubview(stack)
+//            stack.center(inView: headerView)
+//            stack.anchor(top : headerView.topAnchor,bottom: headerView.bottomAnchor)
+//
+//
+//        } else {
+//            let stack = UIStackView(arrangedSubviews: [numberLabel,imageView,dateLabel])
+//            stack.axis = .vertical
+//            stack.spacing = 10
+////            stack.distribution = .fillProportionally
+//
+//            headerView.addSubview(stack)
+//            stack.center(inView: headerView)
+//            stack.anchor(top : headerView.topAnchor,bottom: headerView.bottomAnchor)
+//
+//        }
+
         
+        headerView.addSubview(imageView)
+        imageView.center(inView: headerView, yConstant: -10)
+//        imageView.anchor(top : numberLabel.bottomAnchor, paddingTop: 10)
         
         headerView.addSubview(numberLabel)
         numberLabel.centerX(inView: headerView)
-        numberLabel.anchor(top : headerView.topAnchor, paddingTop: 10)
-
-        headerView.addSubview(imageView)
-        imageView.centerX(inView: headerView)
-        imageView.anchor(top : numberLabel.bottomAnchor, paddingTop: 10)
+        numberLabel.anchor(bottom : imageView.topAnchor, paddingBottom:  15)
 
         headerView.addSubview(dateLabel)
         dateLabel.centerX(inView: headerView)
-        dateLabel.anchor(top : imageView.bottomAnchor,paddingTop: 20)
+        dateLabel.anchor(top : imageView.bottomAnchor,paddingTop: 15)
 
         if let guestLabel = guestLabel, guestLabel.text != "" {
             headerView.addSubview(guestLabel)
-            guestLabel.anchor(top : dateLabel.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
-
-            headerView.addSubview(separatorView)
-            separatorView.anchor( left: leftAnchor, bottom: headerView.bottomAnchor, right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
-        } else {
-            headerView.addSubview(separatorView)
-            separatorView.anchor(left: leftAnchor,  bottom : headerView.bottomAnchor, right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+            guestLabel.anchor(top : dateLabel.bottomAnchor, left: leftAnchor, bottom : headerView.bottomAnchor, paddingTop: 10,paddingLeft: 20)
         }
+
+//            headerView.addSubview(separatorView)
+//            separatorView.anchor( left: leftAnchor, bottom: headerView.bottomAnchor, right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+//        } else {
+//            headerView.addSubview(separatorView)
+//            separatorView.anchor(left: leftAnchor,  bottom : headerView.bottomAnchor, right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+//        }
 //
         
         fotterView.frame = CGRect(x: 0, y: frame.height / 2, width: frame.width, height: frame.height / 2)

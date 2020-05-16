@@ -198,7 +198,6 @@ extension Date {
     var nextDateComponent = calendar.dateComponents([.hour, .minute, .second], from: self)
     nextDateComponent.timeZone = TimeZone(identifier: "Asia/Tokyo")
 
-    print(nextDateComponent)
     nextDateComponent.weekday = searchWeekdayIndex
 
     let date = calendar.nextDate(after: self,

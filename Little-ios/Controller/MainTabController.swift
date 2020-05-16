@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MainTabControllerDelegate {
+    func didSelectTab(tabBarController: UITabBarController)
+}
+
 class MainTabController: UITabBarController {
     
     override func viewDidLoad() {
@@ -29,6 +33,7 @@ class MainTabController: UITabBarController {
         
         
         viewControllers = [homeVC, nav1]
+        self.delegate = self
         
         self.tabBar.barTintColor = .black
         
@@ -73,7 +78,7 @@ class MainTabController: UITabBarController {
 
 /// when tap tab color
 
-extension MainTabController {
+extension MainTabController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item == (self.tabBar.items!)[0]{
             tabBar.tintColor = .red
@@ -81,6 +86,16 @@ extension MainTabController {
         else if item == (self.tabBar.items!)[1]{
            tabBar.tintColor = .green
         }
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let viewController  = viewController
+        if viewController is HomeController {
+            let vc = viewController as! MainTabControllerDelegate
+            vc.didSelectTab(tabBarController: self)
+            
+        }
+        
     }
 }
 

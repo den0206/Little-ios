@@ -49,7 +49,7 @@ class BroadcastsViewController : UICollectionViewController {
         super.viewDidLoad()
         
         configureCV()
-//        fetchAllCasts()
+        fetchAllCasts()
      
     }
     
@@ -101,9 +101,7 @@ class BroadcastsViewController : UICollectionViewController {
 extension BroadcastsViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return 1
-//        return broadcasts.count
+        return broadcasts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

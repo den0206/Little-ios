@@ -34,12 +34,27 @@ class HomeController : UIViewController {
         return iv
     }()
     
+    private let nextlabel : UILabel = {
+        let label = UILabel()
+
+        label.text = "次の放送まで"
+        label.font = UIFont(name: "Palatino", size: 27.0)
+        label.textColor = .red
+        label.numberOfLines = 2
+        label.layoutMargins.bottom = 2.0
+        label.textAlignment = .center
+        
+        return label
+    }()
     
     private let timeLabel : UILabel = {
         let label = UILabel()
         label.text = "Timer"
-        label.font = UIFont.systemFont(ofSize: 25)
+        label.font = UIFont(name: "Palatino", size: 27.0)
         label.textColor = .red
+        label.numberOfLines = 2
+        label.layoutMargins.bottom = 2.0
+        label.textAlignment = .center
         
         return label
     }()
@@ -67,17 +82,27 @@ class HomeController : UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        timer?.invalidate()
+        timer = nil
+    }
+    
     private func configureUI() {
         view.backgroundColor = .black
         
         view.addSubview(logoImageView)
         logoImageView.centerX(inView: view)
-        logoImageView.anchor(top : view.safeAreaLayoutGuide.topAnchor,paddingTop: 150)
+        logoImageView.anchor(top : view.topAnchor,paddingTop: 100)
+       
+        let timerStack = UIStackView(arrangedSubviews: [nextlabel,timeLabel])
+        timerStack.axis = .vertical
+        timerStack.spacing = 20
         
-        view.addSubview(timeLabel)
-        
-        timeLabel.centerX(inView: view)
-        timeLabel.anchor(top : logoImageView.bottomAnchor,paddingTop: 30)
+        view.addSubview(timerStack)
+        timerStack.centerX(inView: view)
+        timerStack.anchor(top : logoImageView.bottomAnchor, paddingTop: 20)
         
 
 
@@ -107,19 +132,11 @@ class HomeController : UIViewController {
 //        sundayDatecomponents.second = 00
 //        sundayDatecomponents.timeZone = TimeZone(identifier: "Asia/Tokyo")
         
-//        var eventDateComponents = DateComponents()
-//        eventDateComponents.year = 2020
-//        eventDateComponents.month = 05
-//        eventDateComponents.day = 17
-//        eventDateComponents.hour = 01
-//        eventDateComponents.minute = 00
-//        eventDateComponents.second = 00
-//        eventDateComponents.timeZone = TimeZone(identifier: "Asia/Tokyo")
         
         let eventDate = userCalender.date(from: sundayDatecomponents)!
         let timeLeft = userCalender.dateComponents([.hour,.month,.year,.day,.minute,.second], from: currentDate, to: eventDate)
         
-        timeLabel.text = "\(timeLeft.day!)d \(timeLeft.hour!)h \(timeLeft.minute!)m \(timeLeft.second!)s"
+        timeLabel.text = "\(timeLeft.day!) Days, \(timeLeft.hour!) Hour,\n\(timeLeft.minute!) Minutes, \(timeLeft.second!) Secounds."
         
         endEvent(currentDate: currentDate, eventDate: eventDate)
         
@@ -137,8 +154,17 @@ class HomeController : UIViewController {
         
         delagate?.handleSideMenu()
     }
+
     
- 
+}
+
+extension HomeController : MainTabControllerDelegate {
+    func didSelectTab(tabBarController: UITabBarController) {
+        
+        sundayDatecomponents = getNextRadio()
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(configureTimer), userInfo: nil, repeats: true)
+        
+    }
     
     
 }
