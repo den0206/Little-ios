@@ -25,6 +25,7 @@ class WordsCell : UICollectionViewCell {
         tv.backgroundColor = .clear
         tv.font = UIFont.systemFont(ofSize: 16)
         tv.isScrollEnabled = false
+        tv.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
         tv.isEditable = false
         tv.text = "Test"
         return tv

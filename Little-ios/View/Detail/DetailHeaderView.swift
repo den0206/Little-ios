@@ -57,7 +57,6 @@ class DetailHeaderView : UIView {
     
     private var guestLabel : UILabel? = {
         let label = UILabel()
-//        label.text = "Guest :"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .black
         
@@ -106,34 +105,7 @@ class DetailHeaderView : UIView {
             addSubview(guestLabel)
             guestLabel.anchor(top : imageView.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
         }
-//            addSubview(separatorView)
-//            separatorView.anchor(top: guestLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
-//        } else {
-//            addSubview(separatorView)
-//            separatorView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
-//        }
-//
 
-        
-//        addSubview(imageView)
-//        imageView.centerX(inView: self)
-//        imageView.anchor(top : numberLabel.bottomAnchor, paddingTop: 20)
-//
-//        addSubview(dateLabel)
-//        dateLabel.centerX(inView: self)
-//        dateLabel.anchor(top : imageView.bottomAnchor,paddingTop: 20)
-//
-//        if let guestLabel = guestLabel, guestLabel.text != "" {
-//            addSubview(guestLabel)
-//            guestLabel.anchor(top : dateLabel.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
-//        }
-//            addSubview(separatorView)
-//            separatorView.anchor(top: guestLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
-//        } else {
-//            addSubview(separatorView)
-//            separatorView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
-//        }
-//
     }
     
     required init?(coder: NSCoder) {
@@ -148,6 +120,10 @@ class DetailHeaderView : UIView {
         
         let url = URL(string: broadcast.image)
         imageView.sd_setImage(with: url)
+        
+        dateLabel.text = broadcast.date
+        
+        guestLabel?.text = broadcast.guest
     }
     
     @objc func backAction() {

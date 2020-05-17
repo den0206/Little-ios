@@ -55,6 +55,8 @@ class BroadcastCell : UICollectionViewCell {
     private var guestLabel : UILabel? = {
         let label = UILabel()
         label.text = "Guest :"
+        label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
+
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .black
     
@@ -300,7 +302,7 @@ class BroadcastCell : UICollectionViewCell {
         let tv = UITextView()
         
         tv.backgroundColor = .clear
-        tv.font = UIFont.systemFont(ofSize: 16)
+        tv.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
         tv.isScrollEnabled = false
         tv.textColor = color
         tv.isEditable = false

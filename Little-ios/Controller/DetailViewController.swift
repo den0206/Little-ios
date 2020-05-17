@@ -17,6 +17,8 @@ class DetailViewController : UIViewController {
     
     var wawos = [String]()
     var kawos = [String]()
+    
+    var dummyIndicatorView = UIActivityIndicatorView()
 
     
     //MARK: - Parts
@@ -54,6 +56,9 @@ class DetailViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBarController?.showPresentLoadindView(true)
+        dummyIndicatorView.startAnimating()
         
         congifureUI()
         configureCV()
@@ -117,6 +122,7 @@ class DetailViewController : UIViewController {
             
             if error != nil {
                 print(error!.localizedDescription)
+                self.tabBarController?.showPresentLoadindView(false)
                 self.showErrorAlert(message: error!.localizedDescription)
             }
             
@@ -127,8 +133,10 @@ class DetailViewController : UIViewController {
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-//                self.collectionView.collectionViewLayout.invalidateLayout()
-
+                
+                self.dummyIndicatorView.stopAnimating()
+                self.tabBarController?.showPresentLoadindView(false)
+                
             }
             
         }
@@ -241,6 +249,9 @@ extension DetailViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
+        if dummyIndicatorView.isAnimating {
+            return CGSize(width: 0, height: 0)
+        }
         
         
         return CGSize(width: view.frame.width, height: 50)
