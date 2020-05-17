@@ -40,10 +40,10 @@ class DetailHeaderView : UIView {
         
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
-        iv.setDimension(width: 200, height: 200)
+        iv.setDimension(width: 50, height: 50)
         iv.backgroundColor = .lightGray
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 200 / 2
+        iv.layer.cornerRadius = 50 / 2
         return iv
     }()
     
@@ -57,7 +57,7 @@ class DetailHeaderView : UIView {
     
     private var guestLabel : UILabel? = {
         let label = UILabel()
-        label.text = "Guest :"
+//        label.text = "Guest :"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .black
         
@@ -86,6 +86,8 @@ class DetailHeaderView : UIView {
         backgroundColor = .lightGray
         
         
+        
+        
         addSubview(backButton)
         backButton.anchor(top : safeAreaLayoutGuide.topAnchor, left:  safeAreaLayoutGuide.leftAnchor, paddingTop: 16,paddingLeft: 20, width: 30,height: 30)
         
@@ -94,16 +96,15 @@ class DetailHeaderView : UIView {
         numberLabel.anchor(top :self.safeAreaLayoutGuide.topAnchor, paddingTop: 20)
         
         addSubview(imageView)
-        imageView.centerX(inView: self)
-        imageView.anchor(top : numberLabel.bottomAnchor, paddingTop: 20)
+        imageView.anchor(top : backButton.bottomAnchor,left: self.leftAnchor, paddingTop: 8, paddingLeft: 16)
         
         addSubview(dateLabel)
+        dateLabel.centerY(inView: imageView)
         dateLabel.centerX(inView: self)
-        dateLabel.anchor(top : imageView.bottomAnchor,paddingTop: 20)
         
         if let guestLabel = guestLabel, guestLabel.text != "" {
             addSubview(guestLabel)
-            guestLabel.anchor(top : dateLabel.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
+            guestLabel.anchor(top : imageView.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
         }
 //            addSubview(separatorView)
 //            separatorView.anchor(top: guestLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
@@ -111,7 +112,28 @@ class DetailHeaderView : UIView {
 //            addSubview(separatorView)
 //            separatorView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
 //        }
+//
+
         
+//        addSubview(imageView)
+//        imageView.centerX(inView: self)
+//        imageView.anchor(top : numberLabel.bottomAnchor, paddingTop: 20)
+//
+//        addSubview(dateLabel)
+//        dateLabel.centerX(inView: self)
+//        dateLabel.anchor(top : imageView.bottomAnchor,paddingTop: 20)
+//
+//        if let guestLabel = guestLabel, guestLabel.text != "" {
+//            addSubview(guestLabel)
+//            guestLabel.anchor(top : dateLabel.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
+//        }
+//            addSubview(separatorView)
+//            separatorView.anchor(top: guestLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+//        } else {
+//            addSubview(separatorView)
+//            separatorView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,  right: rightAnchor, paddingTop: 16 ,width: frame.width, height: 0.5)
+//        }
+//
     }
     
     required init?(coder: NSCoder) {

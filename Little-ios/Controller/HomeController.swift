@@ -38,7 +38,7 @@ class HomeController : UIViewController {
         let label = UILabel()
 
         label.text = "次の放送まで"
-        label.font = UIFont(name: "Palatino", size: 27.0)
+        label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 27.0)
         label.textColor = .red
         label.numberOfLines = 2
         label.layoutMargins.bottom = 2.0
@@ -96,6 +96,7 @@ class HomeController : UIViewController {
         logoImageView.centerX(inView: view)
         logoImageView.anchor(top : view.topAnchor,paddingTop: 100)
        
+        
         let timerStack = UIStackView(arrangedSubviews: [nextlabel,timeLabel])
         timerStack.axis = .vertical
         timerStack.spacing = 20
