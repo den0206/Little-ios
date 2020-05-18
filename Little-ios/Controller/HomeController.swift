@@ -47,6 +47,7 @@ class HomeController : UIViewController {
         return label
     }()
     
+
     private let timeLabel : UILabel = {
         let label = UILabel()
         label.text = "Timer"
@@ -95,16 +96,16 @@ class HomeController : UIViewController {
         view.addSubview(logoImageView)
         logoImageView.centerX(inView: view)
         logoImageView.anchor(top : view.topAnchor,paddingTop: 100)
-       
         
+   
         let timerStack = UIStackView(arrangedSubviews: [nextlabel,timeLabel])
         timerStack.axis = .vertical
         timerStack.spacing = 20
-        
+
         view.addSubview(timerStack)
         timerStack.centerX(inView: view)
         timerStack.anchor(top : logoImageView.bottomAnchor, paddingTop: 20)
-        
+
 
 
     }

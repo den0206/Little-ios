@@ -56,8 +56,6 @@ class BroadcastCell : UICollectionViewCell {
         let label = UILabel()
         label.text = "Guest :"
         label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
-
-        label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .black
     
         return label

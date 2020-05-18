@@ -30,14 +30,18 @@ class MainTabController: UITabBarController {
         let broadcastsVC = BroadcastsViewController()
         let nav1 = templetaNavigationController(image: UIImage(systemName: "tv.music.note.fill"), title: "放送回", rootController: broadcastsVC)
         
+        let wordsVC = WordsViewController()
+        let nav2 = templetaNavigationController(image: UIImage(systemName: "person.2.fill"), title: "発言", rootController: wordsVC)
         
         
-        viewControllers = [homeVC, nav1]
+        
+        viewControllers = [homeVC, nav1, nav2]
         self.delegate = self
         
         self.tabBar.barTintColor = .black
         
-        UITabBar.appearance().tintColor = .red
+        /// 起動時
+        UITabBar.appearance().tintColor = .green
         tabBar.unselectedItemTintColor = .white
     }
     
@@ -81,10 +85,13 @@ class MainTabController: UITabBarController {
 extension MainTabController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item == (self.tabBar.items!)[0]{
-            tabBar.tintColor = .red
+            tabBar.tintColor = .green
         }
         else if item == (self.tabBar.items!)[1]{
-           tabBar.tintColor = .green
+           tabBar.tintColor = .yellow
+        }
+        else if item == (self.tabBar.items!)[2] {
+            tabBar.tintColor = .red
         }
     }
     

@@ -29,9 +29,6 @@ class DetailHeaderView : UIView {
           let label = UILabel()
           label.text = "第３回"
           label.font = UIFont.boldSystemFont(ofSize: 16)
-          label.textColor = .white
-          
-          
           return label
       }()
       
@@ -50,16 +47,15 @@ class DetailHeaderView : UIView {
     private let dateLabel : UILabel = {
         let label = UILabel()
         label.text = "3年3月3日"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
         label.textColor = .black
         return label
     }()
     
     private var guestLabel : UILabel? = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
         label.textColor = .black
-        
         return label
     }()
     
@@ -103,7 +99,7 @@ class DetailHeaderView : UIView {
         
         if let guestLabel = guestLabel, guestLabel.text != "" {
             addSubview(guestLabel)
-            guestLabel.anchor(top : imageView.bottomAnchor, left: leftAnchor,paddingTop: 10,paddingLeft: 20)
+            guestLabel.anchor(top : imageView.bottomAnchor, left: leftAnchor,paddingTop: 15,paddingLeft: 20)
         }
 
     }

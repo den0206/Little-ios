@@ -89,13 +89,13 @@ class DetailViewController : UIViewController {
     private func congifureUI() {
         view.backgroundColor = .lightGray
         
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
+        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
         view.addSubview(headerView)
         
         headerView.addSubview(separateView)
         separateView.anchor(left : headerView.leftAnchor,bottom: headerView.bottomAnchor,right: headerView.rightAnchor,height: 2)
         
-        collectionView.frame = CGRect(x: 0, y: 200, width: view.frame.width, height: view.frame.height)
+        collectionView.frame = CGRect(x: 0, y: 180, width: view.frame.width, height: view.frame.height)
 
         view.addSubview(collectionView)
         
