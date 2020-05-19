@@ -76,8 +76,49 @@ struct APIManager {
 
            task.resume()
        }
+    
+    func getWords(number : Int = 1, wordType : WordType, completion :  @escaping(Word?, Error?) -> Void) {
+        
+        var requestUrl : String
+        switch wordType {
+        case .waka:
+            requestUrl = kWAKA_WORDSURL + "\(number)"
+        case .kasu :
+            requestUrl = kKASU_WORDSURL + "\(number)"
 
-
+        }
+        
+        guard let url = URL(string: requestUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {return}
+        
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: url) { (data, response, error) in
+            
+            if error != nil {
+                print(error!.localizedDescription)
+                completion(nil,error)
+                return
+            }
+            
+            do {
+                guard let safedata = data else {return}
+                let  decorder = JSONDecoder()
+                let words = try decorder.decode(Word.self, from: safedata)
+                
+                completion(words,nil)
+                
+            }
+            catch(let error) {
+                print(error.localizedDescription)
+            }
+            
+        }
+        
+        task.resume()
+        
+        
+    }
+    
+    
     
 }
 

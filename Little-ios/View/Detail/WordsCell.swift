@@ -17,6 +17,12 @@ class WordsCell : UICollectionViewCell {
         }
     }
     
+    var waka : Wawo? {
+        didSet {
+            setWaka()
+        }
+    }
+    
     
     //MARK: - Pats
     
@@ -63,5 +69,11 @@ class WordsCell : UICollectionViewCell {
         
         textView.text = word
     }
+    
+    private func setWaka() {
+        guard let waka = waka else {return}
+        textView.text = waka.body
+    }
+
 
 }

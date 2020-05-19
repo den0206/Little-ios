@@ -27,6 +27,7 @@
 		3AB53F5E246AEF0A006BBB51 /* ImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB53F5D246AEF0A006BBB51 /* ImageHeaderView.swift */; };
 		3AD20C43246840810041FDFC /* BroadcastFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD20C42246840810041FDFC /* BroadcastFooterView.swift */; };
 		3AD552E92467BF3B0089853A /* BroadcastsViewCopntroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */; };
+		3AF524282473F72900D3F007 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF524272473F72900D3F007 /* Words.swift */; };
 		DB63DBD216F7F2FE825EF509 /* Pods_Little_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467D516AABBE5B8930DB1F10 /* Pods_Little_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		3AB53F5D246AEF0A006BBB51 /* ImageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderView.swift; sourceTree = "<group>"; };
 		3AD20C42246840810041FDFC /* BroadcastFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastFooterView.swift; sourceTree = "<group>"; };
 		3AD552E82467BF3B0089853A /* BroadcastsViewCopntroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastsViewCopntroller.swift; sourceTree = "<group>"; };
+		3AF524272473F72900D3F007 /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 		467D516AABBE5B8930DB1F10 /* Pods_Little_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Little_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		829B60CE7C05BF9B38A8DC42 /* Pods-Little-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Little-ios.release.xcconfig"; path = "Target Support Files/Pods-Little-ios/Pods-Little-ios.release.xcconfig"; sourceTree = "<group>"; };
 		ED82DDA2DC31CFBB05234F75 /* Pods-Little-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Little-ios.debug.xcconfig"; path = "Target Support Files/Pods-Little-ios/Pods-Little-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				3A553A292466FD410057EBDF /* Index.swift */,
+				3AF524272473F72900D3F007 /* Words.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				3AA82BC42466EEA200217C76 /* APIManager.swift in Sources */,
 				3AA82BAD2466ED6400217C76 /* AppDelegate.swift in Sources */,
 				3A553A2A2466FD410057EBDF /* Index.swift in Sources */,
+				3AF524282473F72900D3F007 /* Words.swift in Sources */,
 				3A19DB6324678F8B00AF9AF8 /* extensions.swift in Sources */,
 				3A9F7E80246C301C00F3530C /* WordsCell.swift in Sources */,
 				3AA82BAF2466ED6400217C76 /* SceneDelegate.swift in Sources */,

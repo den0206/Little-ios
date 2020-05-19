@@ -17,6 +17,35 @@ class WordsViewController : UIViewController {
     
     var wordType : WordType = .waka
     
+    var wawos = [Wawo]() {
+        didSet {
+            DispatchQueue.main.sync {
+                self.collectionView.reloadData()
+                self.tabBarController?.showPresentLoadindView(false)
+                
+            }
+        }
+    }
+    
+    var wakaPage : Int?
+    
+    var kawos = [Kawo]() {
+        didSet {
+            DispatchQueue.main.sync {
+                self.collectionView.reloadData()
+                self.tabBarController?.showPresentLoadindView(false)
+
+                
+            }
+        }
+    }
+    
+    var kasuPage : Int?
+    
+    var isFirst = true
+
+    
+    
     //MARK: - Parts
     
     let collectionView : UICollectionView = {
@@ -30,10 +59,10 @@ class WordsViewController : UIViewController {
     private lazy var segmentController : UISegmentedControl = {
         let sc = UISegmentedControl(items: ["若林", "春日"])
         sc.selectedSegmentIndex = 0
-        sc.frame = CGRect(x: 10, y: 100, width: (self.view.frame.width - 20), height: 50)
+        sc.frame = CGRect(x: 10, y: 80, width: (self.view.frame.width - 20), height: 50)
         sc.layer.cornerRadius = 5.0
         
-        sc.backgroundColor = UIColor.systemPink
+        sc.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         // 選択時の背景色
         if #available(iOS 13.0, *) {
             sc.selectedSegmentTintColor = UIColor.black
@@ -56,6 +85,8 @@ class WordsViewController : UIViewController {
         super.viewDidLoad()
        
         configureCV()
+        
+        fetchWaka()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,12 +99,21 @@ class WordsViewController : UIViewController {
         switch sender.selectedSegmentIndex {
         case 0:
             wordType = .waka
-            segmentController.backgroundColor = .systemPink
+            segmentController.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+            collectionView.reloadData()
+        //            fetchWaka()
         case 1 :
             wordType = .kasu
-            segmentController.backgroundColor = .blue
-            collectionView.reloadData()
-
+            segmentController.backgroundColor = .systemPink
+            
+            if isFirst {
+                fetchKasu()
+                isFirst = false
+                
+            } else {
+                collectionView.reloadData()
+            }
+            
         default:
             return
         }
@@ -96,19 +136,77 @@ class WordsViewController : UIViewController {
         collectionView.register(ImageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer)
     }
     
+    //MARK: - API
+    
+    private func fetchWaka(number : Int = 1) {
+        
+        self.tabBarController?.showPresentLoadindView(true)
+        
+        APIManager.shared.getWords(number: number, wordType: .waka) { (word, error) in
+            
+            if error != nil {
+                self.tabBarController?.showPresentLoadindView(false)
+                self.showErrorAlert(message: error!.localizedDescription)
+            }
+            
+            guard let wawos = word?.wawos else {return}
+            self.wawos = wawos
+        }
+        
+       
+    }
+    
+    private func fetchKasu(number : Int = 1) {
+        
+        self.tabBarController?.showPresentLoadindView(true)
+        
+        APIManager.shared.getWords(number: number, wordType: .kasu) { (word, error) in
+            
+            if error != nil {
+                self.tabBarController?.showPresentLoadindView(false)
+                self.showErrorAlert(message: error!.localizedDescription)
+            }
+            
+            guard let kawos = word?.kawos else {return}
+            self.kawos = kawos
+        }
+    }
+    
+    
     
 }
 
 extension WordsViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 5
+        switch wordType {
+        case .waka:
+            return wawos.count
+        case .kasu :
+            return kawos.count
+   
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifer, for: indexPath) as! WordsCell
         
         cell.backgroundColor = .clear
+        
+        var word : String
+        
+        switch wordType {
+        case .waka:
+            word = wawos[indexPath.item].body
+            cell.bubbleContainer.backgroundColor = .systemBackground
+
+        case .kasu :
+            word = kawos[indexPath.item].body
+            cell.bubbleContainer.backgroundColor = UIColor(red: 255 / 255, green: 193 / 255, blue: 213 / 255, alpha: 1)
+            
+        }
+        
+        cell.word = word
         
         return cell
     }
@@ -138,7 +236,7 @@ extension WordsViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
         
-        return UIEdgeInsets(top: 10.0, left: 0, bottom: 50.0, right: 0)
+        return UIEdgeInsets(top: 10.0, left: 0, bottom: 200, right: 0)
         
     }
     
@@ -148,13 +246,29 @@ extension WordsViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: view.frame.width, height: 100)
+        var word : String
+        
+        switch wordType {
+        case .waka:
+            word = wawos[indexPath.item].body
+        case .kasu :
+            word = kawos[indexPath.item].body
+            
+        }
+        
+        var height: CGFloat = 80 //Arbitrary number
+        
+        height = estimatedFrameForText(text: word).height + 30
+        
+        
+        return CGSize(width: view.frame.width, height: height)
+        
     }
     
     private func estimatedFrameForText(text: String) -> CGRect {
-          let size = CGSize(width: 250, height: 250)
-          let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-
-          return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
+        let size = CGSize(width: 250, height: 250)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
       }
 }
