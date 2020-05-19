@@ -85,13 +85,13 @@ class MainTabController: UITabBarController {
 extension MainTabController: UITabBarControllerDelegate {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item == (self.tabBar.items!)[0]{
-            tabBar.tintColor = .green
+            tabBar.tintColor = .red
         }
         else if item == (self.tabBar.items!)[1]{
            tabBar.tintColor = .yellow
         }
         else if item == (self.tabBar.items!)[2] {
-            tabBar.tintColor = .red
+            tabBar.tintColor = .green
         }
     }
     

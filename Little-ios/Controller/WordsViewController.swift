@@ -10,6 +10,8 @@ import UIKit
 
 private let reuseIdentifer = "wordsCell"
 private let headerIdentifer = "HeaderView"
+private let footerIdentifer = "footerView"
+
 
 
 
@@ -22,6 +24,8 @@ class WordsViewController : UIViewController {
             DispatchQueue.main.sync {
                 self.collectionView.reloadData()
                 self.tabBarController?.showPresentLoadindView(false)
+                self.dummyIndicator.stopAnimating()
+
                 
             }
         }
@@ -34,6 +38,8 @@ class WordsViewController : UIViewController {
             DispatchQueue.main.sync {
                 self.collectionView.reloadData()
                 self.tabBarController?.showPresentLoadindView(false)
+                self.dummyIndicator.stopAnimating()
+
 
                 
             }
@@ -80,6 +86,10 @@ class WordsViewController : UIViewController {
         return sc
         
     }()
+    
+    var dummyIndicator = UIActivityIndicatorView()
+    
+    //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,6 +144,10 @@ class WordsViewController : UIViewController {
         
         collectionView.register(WordsCell.self, forCellWithReuseIdentifier: reuseIdentifer)
         collectionView.register(ImageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer)
+        collectionView.register(BroadcstFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifer)
+        
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 200, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 200, right: 0)
     }
     
     //MARK: - API
@@ -141,16 +155,19 @@ class WordsViewController : UIViewController {
     private func fetchWaka(number : Int = 1) {
         
         self.tabBarController?.showPresentLoadindView(true)
-        
+        self.dummyIndicator.startAnimating()
         APIManager.shared.getWords(number: number, wordType: .waka) { (word, error) in
             
             if error != nil {
                 self.tabBarController?.showPresentLoadindView(false)
+                self.dummyIndicator.stopAnimating()
+
                 self.showErrorAlert(message: error!.localizedDescription)
             }
             
             guard let wawos = word?.wawos else {return}
             self.wawos = wawos
+            self.wakaPage = word?.pagenation.pagenation.next
         }
         
        
@@ -159,16 +176,19 @@ class WordsViewController : UIViewController {
     private func fetchKasu(number : Int = 1) {
         
         self.tabBarController?.showPresentLoadindView(true)
-        
+        self.dummyIndicator.startAnimating()
+
         APIManager.shared.getWords(number: number, wordType: .kasu) { (word, error) in
             
             if error != nil {
                 self.tabBarController?.showPresentLoadindView(false)
+                self.dummyIndicator.stopAnimating()
                 self.showErrorAlert(message: error!.localizedDescription)
             }
             
             guard let kawos = word?.kawos else {return}
             self.kawos = kawos
+            self.kasuPage = word?.pagenation.pagenation.next
         }
     }
     
@@ -215,18 +235,31 @@ extension WordsViewController : UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer, for: indexPath) as! ImageHeaderView
-        
-        switch wordType {
-        case .waka :
-            header.type = .waka
-            return header
-        case .kasu :
-            header.type = .kasu
-            return header
-      
+        if (kind == "UICollectionElementKindSectionHeader") {
+              let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifer, for: indexPath) as! ImageHeaderView
+              
+              switch wordType {
+              case .waka :
+                  header.type = .waka
+                  return header
+              case .kasu :
+                  header.type = .kasu
+                  return header
+            
+              }
+
+        } else {
+            
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifer, for: indexPath) as! BroadcstFooterView
+            footer.delegate = self
+            footer.nextButton.setTitle("もっと読む", for: .normal)
+            return footer
+            
         }
+        
     }
+    
+    
     
     
 }
@@ -234,14 +267,24 @@ extension WordsViewController : UICollectionViewDelegate, UICollectionViewDataSo
 extension WordsViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        
-        return UIEdgeInsets(top: 10.0, left: 0, bottom: 200, right: 0)
-        
+
+
+        return UIEdgeInsets(top: 10.0, left: 0, bottom: 20, right: 0)
+
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        
+        if self.dummyIndicator.isAnimating {
+            return .zero
+        }
+        
+        return CGSize(width: view.frame.width, height: 50)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -271,4 +314,12 @@ extension WordsViewController : UICollectionViewDelegateFlowLayout {
         
         return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
       }
+}
+
+extension WordsViewController : BroadcstFooterViewDelegate {
+    func handleNext() {
+        print(wakaPage,kasuPage)
+    }
+    
+    
 }

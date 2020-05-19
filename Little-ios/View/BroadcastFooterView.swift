@@ -19,8 +19,8 @@ class BroadcstFooterView : UICollectionReusableView {
     
     let nextButton : UIButton = {
         let button = UIButton()
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 55, weight: .light,scale: .medium)
-        button.setImage(UIImage(systemName: "chevron.right", withConfiguration: symbolConfiguration), for: .normal)
+//        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 55, weight: .light,scale: .medium)
+//        button.setImage(UIImage(systemName: "chevron.right", withConfiguration: symbolConfiguration), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button

@@ -118,6 +118,11 @@ extension BroadcastsViewController {
         
         let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifer, for: indexPath) as! BroadcstFooterView
         footer.delegate = self
+        
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 55, weight: .light,scale: .medium)
+
+        footer.nextButton.setImage(UIImage(systemName: "chevron.right", withConfiguration: symbolConfiguration), for: .normal)
+
         return footer
     }
     
