@@ -21,10 +21,9 @@ class WordsCell : UICollectionViewCell {
     
     //MARK: - Pats
     
-    private let textView : UITextView = {
+    let textView : UITextView = {
         let tv = UITextView()
         tv.backgroundColor = .clear
-        tv.font = UIFont.systemFont(ofSize: 16)
         tv.isScrollEnabled = false
         tv.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
         tv.isEditable = false

@@ -13,7 +13,11 @@ private let headerIdentifer = "HeaderView"
 
 class DetailViewController : UIViewController {
     
-    let broadcast : Broadcast
+    /// index
+    var broadcast : Broadcast?
+    
+    /// show
+    var broadcatId : Int?
     
     var wawos = [String]()
     var kawos = [String]()
@@ -45,14 +49,14 @@ class DetailViewController : UIViewController {
     }()
     
     
-    init(broadcast : Broadcast) {
-        self.broadcast = broadcast
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    init(broadcast : Broadcast) {
+//        self.broadcast = broadcast
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +67,7 @@ class DetailViewController : UIViewController {
         congifureUI()
         configureCV()
         
-        fetchWords()
+        checkBroadcast()
         
     }
     
@@ -117,8 +121,22 @@ class DetailViewController : UIViewController {
     
     //MARK: - API
     
+    private func checkBroadcast() {
+        if broadcast != nil {
+            fetchWords()
+            return
+        }
+        
+        /// no broad ast obj
+        
+        fetchBroadcast()
+        
+    }
+
+    /// index
     private func fetchWords() {
-        APIManager.shared.oneCastRequest(number: broadcast.number) { (words, error) in
+        guard let broadcast = self.broadcast else {return}
+        APIManager.shared.oneCastWords(number: broadcast.number) { (words, error) in
             
             if error != nil {
                 print(error!.localizedDescription)
@@ -128,8 +146,9 @@ class DetailViewController : UIViewController {
             
             guard let words = words else {return}
             //
-            self.wawos = words.wawos
-            self.kawos = words.kawos
+            
+            self.wawos = words.wawos.shuffled()
+            self.kawos = words.kawos.shuffled()
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -141,7 +160,38 @@ class DetailViewController : UIViewController {
             
         }
     }
+    
+    // show
+    
+    private func fetchBroadcast() {
+        guard let broadcastId = broadcatId else {return}
+        APIManager.shared.oneCastRequest(number: broadcastId) { (show, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                self.tabBarController?.showPresentLoadindView(false)
+                self.showErrorAlert(message: error!.localizedDescription)
+            }
+            
+            guard let show = show else {return}
+            
+            self.broadcast = show.broadcast
+            
+            self.wawos = show.wawos.shuffled()
+            self.kawos = show.kawos.shuffled()
+//            self.headerView.broadcast = show.broadcast
 
+            DispatchQueue.main.async {
+                self.headerView.broadcast = show.broadcast
+
+                self.collectionView.reloadData()
+
+                
+                self.dummyIndicatorView.stopAnimating()
+                self.tabBarController?.showPresentLoadindView(false)
+                
+            }
+        }
+    }
     
 }
 

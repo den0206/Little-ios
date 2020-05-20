@@ -26,13 +26,15 @@ class DetailHeaderView : UIView {
     //MARK: - Parts
     
     private let numberLabel : UILabel = {
-          let label = UILabel()
-          label.text = "第３回"
-          label.font = UIFont.boldSystemFont(ofSize: 16)
-          return label
-      }()
-      
-
+        let label = UILabel()
+        label.text = "Loading..."
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
+        
+        return label
+    }()
+    
+    
     private let imageView : UIImageView = {
         
         let iv = UIImageView()
@@ -46,7 +48,7 @@ class DetailHeaderView : UIView {
     
     private let dateLabel : UILabel = {
         let label = UILabel()
-        label.text = "3年3月3日"
+        label.text = "Loading..."
         label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
         label.textColor = .black
         return label
@@ -116,6 +118,8 @@ class DetailHeaderView : UIView {
         
         let url = URL(string: broadcast.image)
         imageView.sd_setImage(with: url)
+        
+        numberLabel.text = "\(broadcast.number)回"
         
         dateLabel.text = broadcast.date
         

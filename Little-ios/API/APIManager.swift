@@ -45,7 +45,7 @@ struct APIManager {
     
 //    MARK: - fetch One Broadcast
        
-       func oneCastRequest(number : Int, completion : @escaping(Words?, Error?) -> Void) {
+       func oneCastWords(number : Int, completion : @escaping(Words?, Error?) -> Void) {
 
            let requestUrl = kONECAST_URL + "\(number)"
 
@@ -64,7 +64,6 @@ struct APIManager {
                 guard let safedata = data else {return}
                 let  decorder = JSONDecoder()
                 let words = try decorder.decode(Words.self, from: safedata)
-
                 completion(words,nil)
 
                }
@@ -76,6 +75,37 @@ struct APIManager {
 
            task.resume()
        }
+    
+    func oneCastRequest(number : Int, completion : @escaping(Show?, Error?) -> Void) {
+
+        let requestUrl = kONECAST_URL + "\(number)"
+        guard let url = URL(string: requestUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {return}
+
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: url) { (data, response, error) in
+
+            if error != nil {
+                print(error!.localizedDescription)
+                completion(nil,error)
+                return
+            }
+
+            do {
+             guard let safedata = data else {return}
+             let  decorder = JSONDecoder()
+             let show = try decorder.decode(Show.self, from: safedata)
+                print(show)
+             completion(show,nil)
+
+            }
+            catch(let error) {
+                print(error.localizedDescription)
+            }
+
+        }
+
+        task.resume()
+    }
     
     func getWords(number : Int = 1, wordType : WordType, completion :  @escaping(Word?, Error?) -> Void) {
         

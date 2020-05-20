@@ -130,8 +130,11 @@ extension BroadcastsViewController {
         
         let broadcast = broadcasts[indexPath.item]
         
-        let detailVC = DetailViewController(broadcast: broadcast)
+//        let detailVC = DetailViewController(broadcast: broadcast)
+        let detailVC = DetailViewController()
+        detailVC.broadcast = broadcast
         navigationController?.pushViewController(detailVC, animated: false)
+        
         
     }
     

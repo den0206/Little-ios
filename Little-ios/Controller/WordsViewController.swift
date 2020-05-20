@@ -229,6 +229,7 @@ extension WordsViewController : UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         cell.word = word
+        cell.textView.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 24.0)
         
         return cell
     }
@@ -273,7 +274,10 @@ extension WordsViewController : UICollectionViewDelegate, UICollectionViewDataSo
             broadcastId = kawos[indexPath.item].broadcastID
         }
         
-        print(broadcastId)
+        let detailVC = DetailViewController()
+        detailVC.broadcatId = broadcastId
+        
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     
@@ -328,7 +332,7 @@ extension WordsViewController : UICollectionViewDelegateFlowLayout {
         let size = CGSize(width: 250, height: 250)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)], context: nil)
       }
 }
 
