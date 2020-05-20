@@ -41,7 +41,7 @@ class MainTabController: UITabBarController {
         self.tabBar.barTintColor = .black
         
         /// 起動時
-        UITabBar.appearance().tintColor = .green
+        UITabBar.appearance().tintColor = .red
         tabBar.unselectedItemTintColor = .white
     }
     

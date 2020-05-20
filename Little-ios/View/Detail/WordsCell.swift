@@ -17,12 +17,7 @@ class WordsCell : UICollectionViewCell {
         }
     }
     
-    var waka : Wawo? {
-        didSet {
-            setWaka()
-        }
-    }
-    
+
     
     //MARK: - Pats
     
@@ -34,6 +29,8 @@ class WordsCell : UICollectionViewCell {
         tv.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
         tv.isEditable = false
         tv.text = "Test"
+        tv.isUserInteractionEnabled = false
+
         return tv
     }()
     
@@ -41,7 +38,7 @@ class WordsCell : UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 12
-        
+        view.isUserInteractionEnabled = false
         return view
     }()
     
@@ -70,10 +67,6 @@ class WordsCell : UICollectionViewCell {
         textView.text = word
     }
     
-    private func setWaka() {
-        guard let waka = waka else {return}
-        textView.text = waka.body
-    }
 
 
 }

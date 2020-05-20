@@ -18,6 +18,12 @@ struct Index: Codable {
     let pagenation: Pagenation
 }
 
+//MARK: - Show
+struct Show: Codable {
+    let broadcast: Broadcast
+    let wawos, kawos: [String]
+}
+
 // MARK: - Broadcast
 struct Broadcast: Codable {
     let id, number: Int

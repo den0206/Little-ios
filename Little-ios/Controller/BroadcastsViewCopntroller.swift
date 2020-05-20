@@ -172,7 +172,9 @@ extension BroadcastsViewController : UICollectionViewDelegateFlowLayout {
 extension BroadcastsViewController : BroadcstFooterViewDelegate {
     func handleNext() {
         
-        guard let nextPageToken = self.nextPageToken else {return}
+        guard let nextPageToken = self.nextPageToken else {
+            collectionView.reloadData()
+            return}
         
         self.tabBarController?.showPresentLoadindView(true)
 

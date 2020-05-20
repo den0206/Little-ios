@@ -21,6 +21,7 @@ class WordsViewController : UIViewController {
     
     var wawos = [Wawo]() {
         didSet {
+            print(wawos.count)
             DispatchQueue.main.sync {
                 self.collectionView.reloadData()
                 self.tabBarController?.showPresentLoadindView(false)
@@ -35,6 +36,7 @@ class WordsViewController : UIViewController {
     
     var kawos = [Kawo]() {
         didSet {
+            print(kawos.count)
             DispatchQueue.main.sync {
                 self.collectionView.reloadData()
                 self.tabBarController?.showPresentLoadindView(false)
@@ -166,7 +168,7 @@ class WordsViewController : UIViewController {
             }
             
             guard let wawos = word?.wawos else {return}
-            self.wawos = wawos
+            self.wawos.append(contentsOf: wawos)
             self.wakaPage = word?.pagenation.pagenation.next
         }
         
@@ -187,7 +189,7 @@ class WordsViewController : UIViewController {
             }
             
             guard let kawos = word?.kawos else {return}
-            self.kawos = kawos
+            self.kawos.append(contentsOf: kawos)
             self.kasuPage = word?.pagenation.pagenation.next
         }
     }
@@ -253,12 +255,26 @@ extension WordsViewController : UICollectionViewDelegate, UICollectionViewDataSo
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerIdentifer, for: indexPath) as! BroadcstFooterView
             footer.delegate = self
             footer.nextButton.setTitle("もっと読む", for: .normal)
+            footer.nextButton.titleLabel?.font =  UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 18.0)
             return footer
             
         }
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var broadcastId : Int
+        
+        switch wordType {
+        case .waka:
+            broadcastId = wawos[indexPath.item].broadcastID
+        case .kasu :
+            broadcastId = kawos[indexPath.item].broadcastID
+        }
+        
+        print(broadcastId)
+    }
     
     
     
@@ -317,8 +333,20 @@ extension WordsViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension WordsViewController : BroadcstFooterViewDelegate {
+    
     func handleNext() {
-        print(wakaPage,kasuPage)
+        switch wordType {
+        case .waka:
+            guard let wakaPage = wakaPage else {
+                collectionView.reloadData()
+                return}
+            fetchWaka(number: wakaPage)
+        case .kasu :
+            guard let kasuPage = kasuPage else {
+                collectionView.reloadData()
+                return}
+            fetchKasu(number: kasuPage)
+        }
     }
     
     
