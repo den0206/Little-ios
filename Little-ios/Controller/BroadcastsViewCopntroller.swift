@@ -25,6 +25,12 @@ class BroadcastsViewController : UICollectionViewController {
         }
     }
     
+    var bannerView : UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    
     var nextPageToken : Int?
     /// fale indicatoe for hide footerView
     let indicator = UIActivityIndicatorView()
@@ -51,6 +57,16 @@ class BroadcastsViewController : UICollectionViewController {
         configureCV()
         fetchAllCasts()
      
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        view.addSubview(bannerView)
+        bannerView.centerX(inView: view)
+        bannerView.anchor(bottom: self.tabBarController?.tabBar.topAnchor,width: 320,height: 50)
+        
+        AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {

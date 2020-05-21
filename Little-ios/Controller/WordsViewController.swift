@@ -89,6 +89,11 @@ class WordsViewController : UIViewController {
         
     }()
     
+    var bannerView : UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     var dummyIndicator = UIActivityIndicatorView()
     
     //MARK: - Life Cycle
@@ -99,6 +104,16 @@ class WordsViewController : UIViewController {
         configureCV()
         
         fetchWaka()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        view.addSubview(bannerView)
+        bannerView.centerX(inView: view)
+        bannerView.anchor(top: view.topAnchor,paddingTop: 15, width: 320,height: 50)
+        
+        AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {
