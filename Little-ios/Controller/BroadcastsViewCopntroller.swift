@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 private let reuseIdentifer = "BroadcastCell"
 private let footerIdentifer = "footerView"
@@ -35,6 +36,8 @@ class BroadcastsViewController : UICollectionViewController {
     /// fale indicatoe for hide footerView
     let indicator = UIActivityIndicatorView()
     
+    var interstitial : GADInterstitial!
+    
     var viewWidth: CGFloat!
     var viewHeight: CGFloat!
     var cellOffset: CGFloat!
@@ -56,6 +59,8 @@ class BroadcastsViewController : UICollectionViewController {
         
         configureCV()
         fetchAllCasts()
+        
+        interstitial = createAndLoadInterstitial()
      
     }
     
@@ -66,7 +71,12 @@ class BroadcastsViewController : UICollectionViewController {
         bannerView.centerX(inView: view)
         bannerView.anchor(bottom: self.tabBarController?.tabBar.topAnchor,width: 320,height: 50)
         
-        AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
+        if admob_test {
+             AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
+        } else {
+            AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.adBanner1.rawValue)
+        }
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -195,10 +205,30 @@ extension BroadcastsViewController : BroadcstFooterViewDelegate {
             collectionView.reloadData()
             return}
         
+        if nextPageToken % 3 == 0 {
+            
+            if interstitial.isReady {
+                interstitial.present(fromRootViewController: self)
+            } else {
+                print("NO Ready")
+            }
+        } else {
+            /// no admob
+            loadNextBroadcasts(nextPage: nextPageToken)
+            
+        }
+        
+        
+     
+    }
+    
+    
+    private func loadNextBroadcasts(nextPage : Int) {
+        
         self.tabBarController?.showPresentLoadindView(true)
-
+        
         var broadcasts = [Broadcast]()
-        APIManager.shared.allCastsRequest(page: nextPageToken) { (index, error) in
+        APIManager.shared.allCastsRequest(page: nextPage) { (index, error) in
             guard let index = index else {return}
             
             broadcasts = index.broadcasts
@@ -210,5 +240,52 @@ extension BroadcastsViewController : BroadcstFooterViewDelegate {
     }
     
     
+    
+}
+
+//MARK: - interstitial AD
+
+extension BroadcastsViewController : GADInterstitialDelegate {
+
+    func createAndLoadInterstitial() -> GADInterstitial {
+        
+        var interstitial : GADInterstitial
+        
+        if admob_test {
+            interstitial = GADInterstitial(adUnitID: AdMobID.InterstitialTest.rawValue)
+        } else {
+            ///本番
+            interstitial = GADInterstitial(adUnitID: AdMobID.InterstitialTest.rawValue)
+            
+        }
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+        
+    }
+    
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        guard let nextPageToken = self.nextPageToken else {
+            collectionView.reloadData()
+            return}
+        
+        loadNextBroadcasts(nextPage: nextPageToken)
+        
+        
+//        var broadcasts = [Broadcast]()
+//        APIManager.shared.allCastsRequest(page: nextPageToken) { (index, error) in
+//            guard let index = index else {return}
+//
+//            broadcasts = index.broadcasts
+//
+//            self.broadcasts.append(contentsOf: broadcasts)
+//            self.nextPageToken = index.pagenation.pagenation.next
+//
+//        }
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
+    }
 }
 

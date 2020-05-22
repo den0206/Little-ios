@@ -67,7 +67,7 @@ class WordsViewController : UIViewController {
     private lazy var segmentController : UISegmentedControl = {
         let sc = UISegmentedControl(items: ["若林", "春日"])
         sc.selectedSegmentIndex = 0
-        sc.frame = CGRect(x: 10, y: 80, width: (self.view.frame.width - 20), height: 50)
+        sc.frame = CGRect(x: 10, y: 130, width: (self.view.frame.width - 20), height: 50)
         sc.layer.cornerRadius = 5.0
         
         sc.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
@@ -111,9 +111,14 @@ class WordsViewController : UIViewController {
         
         view.addSubview(bannerView)
         bannerView.centerX(inView: view)
-        bannerView.anchor(top: view.topAnchor,paddingTop: 15, width: 320,height: 50)
+        bannerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,paddingTop: 15, width: 320,height: 50)
         
-        AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
+        if admob_test {
+            AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
+        } else {
+            AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.adBanner2.rawValue)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

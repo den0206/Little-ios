@@ -8,6 +8,10 @@
 
 import GoogleMobileAds
 
+
+let admob_test = true
+
+
 class AdMobHelper : NSObject {
     
     static let shared = AdMobHelper()
@@ -25,4 +29,8 @@ class AdMobHelper : NSObject {
         adView.load(GADRequest())
         adBaseView.addSubview(adView)
     }
+    
+    
+    
+    
 }
