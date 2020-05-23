@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 private let reuseIdentifer = "wordsCell"
 private let headerIdentifer = "HeaderView"
@@ -51,9 +52,9 @@ class WordsViewController : UIViewController {
     var kasuPage : Int?
     
     var isFirst = true
+    
+    var interstitial : GADInterstitial!
 
-    
-    
     //MARK: - Parts
     
     let collectionView : UICollectionView = {
@@ -67,7 +68,7 @@ class WordsViewController : UIViewController {
     private lazy var segmentController : UISegmentedControl = {
         let sc = UISegmentedControl(items: ["若林", "春日"])
         sc.selectedSegmentIndex = 0
-        sc.frame = CGRect(x: 10, y: 130, width: (self.view.frame.width - 20), height: 50)
+        sc.frame = CGRect(x: 10, y: 100, width: (self.view.frame.width - 20), height: 50)
         sc.layer.cornerRadius = 5.0
         
         sc.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
@@ -104,6 +105,10 @@ class WordsViewController : UIViewController {
         configureCV()
         
         fetchWaka()
+        
+        interstitial = createAndLoadInterstitial()
+
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -111,7 +116,7 @@ class WordsViewController : UIViewController {
         
         view.addSubview(bannerView)
         bannerView.centerX(inView: view)
-        bannerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,paddingTop: 15, width: 320,height: 50)
+        bannerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,bottom:segmentController.topAnchor, paddingTop: 15, paddingBottom :10, width: 320,height: 50)
         
         if admob_test {
             AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
@@ -249,7 +254,7 @@ extension WordsViewController : UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         cell.word = word
-        cell.textView.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 24.0)
+        cell.textView.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 20.0)
         
         return cell
     }
@@ -352,26 +357,85 @@ extension WordsViewController : UICollectionViewDelegateFlowLayout {
         let size = CGSize(width: 250, height: 250)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)], context: nil)
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)], context: nil)
       }
 }
 
 extension WordsViewController : BroadcstFooterViewDelegate {
     
     func handleNext() {
+       
+        
         switch wordType {
         case .waka:
-            guard let wakaPage = wakaPage else {
-                collectionView.reloadData()
-                return}
-            fetchWaka(number: wakaPage)
+            guard let wakaPage = wakaPage else {return}
+            
+            if wakaPage % 3 == 0 {
+                if interstitial.isReady {
+                    interstitial.present(fromRootViewController: self)
+                } else {
+                    print("NO Ready")
+                }
+            } else {
+                fetchWaka(number: wakaPage)
+            }
+            
         case .kasu :
-            guard let kasuPage = kasuPage else {
-                collectionView.reloadData()
-                return}
-            fetchKasu(number: kasuPage)
+            guard let kasuPage = kasuPage else {return}
+            
+            if kasuPage % 3 == 0 {
+                if interstitial.isReady {
+                    interstitial.present(fromRootViewController: self)
+                } else {
+                    print("NO Ready")
+                }
+            } else {
+                fetchKasu(number: kasuPage)
+                
+            }
         }
     }
     
     
+}
+
+//MARK: - interstitial AD
+
+extension WordsViewController : GADInterstitialDelegate {
+    
+    func createAndLoadInterstitial() -> GADInterstitial {
+        
+        var interstitial : GADInterstitial
+        
+        if admob_test {
+            interstitial = GADInterstitial(adUnitID: AdMobID.InterstitialTest.rawValue)
+        } else {
+            ///本番 (inter2)
+            interstitial = GADInterstitial(adUnitID: AdMobID.inter2.rawValue)
+            
+        }
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+        
+    }
+    
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        
+        switch wordType  {
+        case .waka:
+            guard let wakaPage = wakaPage else {return}
+            fetchWaka(number: wakaPage)
+        case .kasu :
+            guard let kasuPage = kasuPage else {return}
+            
+            fetchKasu(number: kasuPage)
+        }
+        
+    }
+    
+    /// ra make
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
+    }
 }

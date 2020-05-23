@@ -254,8 +254,8 @@ extension BroadcastsViewController : GADInterstitialDelegate {
         if admob_test {
             interstitial = GADInterstitial(adUnitID: AdMobID.InterstitialTest.rawValue)
         } else {
-            ///本番
-            interstitial = GADInterstitial(adUnitID: AdMobID.InterstitialTest.rawValue)
+            ///本番(ionter1)
+            interstitial = GADInterstitial(adUnitID: AdMobID.inter1.rawValue)
             
         }
         interstitial.delegate = self
