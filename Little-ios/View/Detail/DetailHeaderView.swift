@@ -30,6 +30,7 @@ class DetailHeaderView : UIView {
         label.text = "Loading..."
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
+        label.textColor = .white
         
         return label
     }()
@@ -40,8 +41,10 @@ class DetailHeaderView : UIView {
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
         iv.setDimension(width: 50, height: 50)
-        iv.backgroundColor = .lightGray
+        iv.backgroundColor = .black
         iv.clipsToBounds = true
+        iv.layer.borderWidth = 2
+        iv.layer.borderColor = UIColor.white.cgColor
         iv.layer.cornerRadius = 50 / 2
         return iv
     }()
@@ -50,14 +53,14 @@ class DetailHeaderView : UIView {
         let label = UILabel()
         label.text = "Loading..."
         label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
     private var guestLabel : UILabel? = {
         let label = UILabel()
         label.font = UIFont(name: "851CHIKARA-DZUYOKU-KANA-A", size: 16.0)
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
@@ -80,7 +83,7 @@ class DetailHeaderView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        backgroundColor = .black
         
         
         

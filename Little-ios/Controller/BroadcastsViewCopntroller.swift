@@ -74,6 +74,8 @@ class BroadcastsViewController : UICollectionViewController {
         if admob_test {
              AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
         } else {
+            print("本番")
+
             AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.adBanner1.rawValue)
         }
        
@@ -255,6 +257,8 @@ extension BroadcastsViewController : GADInterstitialDelegate {
             interstitial = GADInterstitial(adUnitID: AdMobID.InterstitialTest.rawValue)
         } else {
             ///本番(ionter1)
+            print("本番")
+
             interstitial = GADInterstitial(adUnitID: AdMobID.inter1.rawValue)
             
         }

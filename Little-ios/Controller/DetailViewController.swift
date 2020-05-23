@@ -147,8 +147,13 @@ class DetailViewController : UIViewController {
             guard let words = words else {return}
             //
             
+            
+            
             self.wawos = words.wawos.shuffled()
             self.kawos = words.kawos.shuffled()
+            
+            self.wawos.insert(broadcast.waka, at: 0)
+            self.kawos.insert(broadcast.kasu, at: 0)
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -178,8 +183,11 @@ class DetailViewController : UIViewController {
             
             self.wawos = show.wawos.shuffled()
             self.kawos = show.kawos.shuffled()
-//            self.headerView.broadcast = show.broadcast
-
+            
+            self.wawos.insert(show.broadcast.waka, at: 0)
+            self.kawos.insert(show.broadcast.kasu, at: 0)
+            //            self.headerView.broadcast = show.broadcast
+            
             DispatchQueue.main.async {
                 self.headerView.broadcast = show.broadcast
 

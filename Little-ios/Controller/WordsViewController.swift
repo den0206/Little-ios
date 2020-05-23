@@ -68,7 +68,6 @@ class WordsViewController : UIViewController {
     private lazy var segmentController : UISegmentedControl = {
         let sc = UISegmentedControl(items: ["若林", "春日"])
         sc.selectedSegmentIndex = 0
-        sc.frame = CGRect(x: 10, y: 100, width: (self.view.frame.width - 20), height: 50)
         sc.layer.cornerRadius = 5.0
         
         sc.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
@@ -107,20 +106,20 @@ class WordsViewController : UIViewController {
         fetchWaka()
         
         interstitial = createAndLoadInterstitial()
-
+        
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        view.addSubview(bannerView)
-        bannerView.centerX(inView: view)
-        bannerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,bottom:segmentController.topAnchor, paddingTop: 15, paddingBottom :10, width: 320,height: 50)
+        
         
         if admob_test {
             AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
         } else {
+            print("本番")
+
             AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.adBanner2.rawValue)
         }
         
@@ -160,7 +159,16 @@ class WordsViewController : UIViewController {
     
     private func configureCV() {
         
+        view.addSubview(bannerView)
+        bannerView.centerX(inView: view)
+        bannerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 15, width: 320,height: 50)
+        
+        print(bannerView.frame.origin.y)
         view.addSubview(segmentController)
+        
+        segmentController.frame = CGRect(x: 10, y: 100, width: (self.view.frame.width - 20), height: 50)
+        segmentController.anchor(top : bannerView.bottomAnchor,left : view.leftAnchor,right: view.rightAnchor, paddingTop: 15,paddingLeft: 10,paddingRight: 10, width: (self.view.frame.width - 20), height: 50)
+
         
         let segY = segmentController.frame.origin.y + segmentController.frame.height + 50
         collectionView.frame = CGRect(x: 0, y: segY, width: view.frame.width, height: view.frame.height)
@@ -411,8 +419,8 @@ extension WordsViewController : GADInterstitialDelegate {
             interstitial = GADInterstitial(adUnitID: AdMobID.InterstitialTest.rawValue)
         } else {
             ///本番 (inter2)
+            print("本番")
             interstitial = GADInterstitial(adUnitID: AdMobID.inter2.rawValue)
-            
         }
         interstitial.delegate = self
         interstitial.load(GADRequest())
