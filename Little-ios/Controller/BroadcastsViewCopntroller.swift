@@ -66,11 +66,11 @@ class BroadcastsViewController : UICollectionViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         view.addSubview(bannerView)
         bannerView.centerX(inView: view)
         bannerView.anchor(bottom: self.tabBarController?.tabBar.topAnchor,width: 320,height: 50)
-        
+
         if admob_test {
              AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.bannerViewTest.rawValue)
         } else {
@@ -78,7 +78,7 @@ class BroadcastsViewController : UICollectionViewController {
 
             AdMobHelper.shared.setupBannerAd(adBaseView: bannerView, rootVC: self,bannerId: AdMobID.adBanner1.rawValue)
         }
-       
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
